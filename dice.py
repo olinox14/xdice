@@ -21,7 +21,7 @@ def roll(pattern_string):
 def rolldice(faces, amount=1):
     return Dice(faces, amount).roll()
 
-_ALLOWED = {'abs': abs}
+_ALLOWED = {'abs': abs, 'max': max, 'min': min}
 
 def _secured_eval(raw):
     """ securely evaluate the incoming raw string by avoiding the use of any non-allowed function """
@@ -51,7 +51,7 @@ class Dice():
             if not int(sides) >= 1:
                 raise ValueError()
         except (TypeError, ValueError):
-            raise TypeError("Invalid value for sides (given: '{}')".format(sides))
+            raise ValueError("Invalid value for sides (given: '{}')".format(sides))
         self._sides = sides
 
     @property
@@ -69,6 +69,9 @@ class Dice():
 
     def __repr__(self):
         return "<Dice; sides={}; amount={}>".format(self.sides, self.amount)
+
+    def __eq__(self, d):
+        return self.sides == d.sides and self.amount == d.amount
 
     def roll(self):
         """ Role the dice and return a Score object """
@@ -113,7 +116,7 @@ class Score(int):
         return self._detail
 
     def __repr__(self):
-        return "<Score; score={}; detail={}>".format(self.detail, int(self))
+        return "<Score; score={}; detail={}>".format(int(self), self.detail)
 
     def __contains__(self, value):
         return self.detail.__contains__(value)
@@ -121,11 +124,12 @@ class Score(int):
     def __iter__(self):
         return self.detail.__iter__()
 
-
 class Pattern():
     def __init__(self, instr):
+        if not instr:
+            raise ValueError("Invalid value for 'instr' ('{}')".format(instr))
         self.instr = Pattern._normalize(instr)
-        self.dices = {}
+        self.dices = []
         self.format_string = ""
 
     @staticmethod
@@ -137,21 +141,21 @@ class Pattern():
 
         def _submatch(match):
             dice = Dice.parse(match.group(0))
-            name = "d{}".format(len(self.dices) + 1)
-            self.dices[name] = dice
-            return "{{{}}}".format(name)
+            index = len(self.dices)
+            self.dices.append(dice)
+            return "{{{}}}".format(index)
 
         self.format_string = re.sub('\d+d\d+', _submatch, self.instr)
 
     def roll(self):
         if not self.format_string:
             self.compile()
-        scores = {name: dice.roll() for name, dice in self.dices.items()}
+        scores = [dice.roll() for dice in self.dices]
         return PatternScore(self.format_string, scores)
 
 class PatternScore(int):
     def __new__(cls, eval_string, scores):
-        ps = super(PatternScore, cls).__new__(cls, _secured_eval(eval_string.format(**scores)))
+        ps = super(PatternScore, cls).__new__(cls, _secured_eval(eval_string.format(*scores)))
 
         ps._eval_string = eval_string
         ps._scores = scores
@@ -159,10 +163,12 @@ class PatternScore(int):
         return ps
 
     def format(self):
-        return self._eval_string.format(**{name: str(list(score)) for name, score in self._scores.items()})
+        return self._eval_string.format(*[str(list(score)) for score in self._scores])
 
     def score(self, i):
-        return self.scores[i]
+        return self._scores[i]
 
     def scores(self):
         return self._scores
+
+
