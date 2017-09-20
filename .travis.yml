@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+install:
+  - pip install cov-core
+  - pip install nose2
+  - pip install coveralls
+script: 
+  - nose2
+after_success:
+  coveralls
