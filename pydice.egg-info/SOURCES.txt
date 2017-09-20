@@ -1,0 +1,9 @@
+MANIFEST.in
+README.md
+dice.py
+roll.py
+setup.py
+pydice.egg-info/PKG-INFO
+pydice.egg-info/SOURCES.txt
+pydice.egg-info/dependency_links.txt
+pydice.egg-info/top_level.txt
