@@ -10,7 +10,7 @@ DiceRollParser has been tested with python 3.3+
 
 ### Documentation
 
-See the full documentation at [...]()
+See the **[full documentation](https://pydice.readthedocs.io/en/latest/)**
 
 #### Examples:  
 
@@ -70,3 +70,7 @@ Any opinion / contribution is welcome, please contact us.
 #### Author
 
 Olivier Massot, 2017, with *Cro-ki Lab*
+
+#### Tags
+
+	dice roll d20 game random parser dices role board

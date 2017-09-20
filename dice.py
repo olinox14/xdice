@@ -1,14 +1,14 @@
 '''
-    pydice is a lightweight python library for managing rolls of dice.
+    pydice is a lightweight python 3.3+ library for managing rolls of dice.
 
     License: GNU
 
-@author: olinox14, 2017
+@author: Olivier Massot <croki.contact@gmail.com>, 2017
 '''
 import random
 import re
 
-__VERSION__ = 0.1
+__VERSION__ = 1.0
 
 def compile(pattern_string):  # @ReservedAssignment
     p = Pattern(pattern_string)
