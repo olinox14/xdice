@@ -1,61 +1,38 @@
 '''
+    pydice is a lightweight python library for managing rolls of dice.
 
+    License: GNU
+
+@author: olinox14, 2017
 '''
 import random
 import re
 
+__VERSION__ = 0.1
+
+def compile(pattern_string):  # @ReservedAssignment
+    p = Pattern(pattern_string)
+    p.compile()
+    return p
+
+def roll(pattern_string):
+    return Pattern(pattern_string).roll()
+
+def rolldice(faces, amount=1):
+    return Dice(faces, amount).roll()
+
 _ALLOWED = {'abs': abs}
 
-def roll_d(pattern):
-    """ Parse, roll and evaluate the pattern.
-
-    'pattern' can be any mathematics expression and include dice notations ('xDx').
-    Eg: '1d4+2', '10d6+2-1d20', '3*(1d6+2)'...Etc
-
-    Returns tuple of score (integer) and detailed result (string)
-    """
-    # Parse the pattern
-    parsed = _parse(pattern)
-    raw = _forcejoin(parsed)
-    return _secured_eval(raw), raw
-
-def roll(pattern):
-    """ Similar to roll_d(), but only return the numeric results (integer) """
-    return roll_d(pattern)[0]
-
 def _secured_eval(raw):
-    """ securely evaluate the incoming raw string """
+    """ securely evaluate the incoming raw string by avoiding the use of any non-allowed function """
     return eval(raw, {"__builtins__":None}, _ALLOWED)
 
-def _forcejoin(obj_list):
-    """ force-join the objects of the list by forcing string conversion of its items """
-    return "".join(map(str, obj_list))
-
-def _parse(pattern):
-    """ split the members and symbols of the pattern and roll them when it is possible """
-    return [_roll_if_u_can(m) for m in _split_members(pattern)]
-
-def _normalize(pattern):
-    """ normalize the incoming string to a lower string without spaces"""
-    return str(pattern).replace(" ", "").lower()
-
-def _split_members(pattern):
-    """ split a string by blocks of numeric / symbols / dice notations
-    eg: '1d6+2' becomes ['1d6', '+', '2']
-    """
-    return re.findall(r"[\w']+|[\W']+", _normalize(pattern))
-
-def _roll_if_u_can(member):
-    """ try to interpret member as a dice notation and roll it.
-    If it can not, member is returned as it was."""
-    try:
-        return Dice.parse(member).roll()
-    except ValueError:
-        return member
-
 class Dice():
-    """ Dice(sides, amount=1)
-    Set of dice. Use roll() to get a score.
+    """
+    Dice(sides, amount=1):
+    Set of dice.
+
+    Use roll() to get a Score() object.
     """
     def __init__(self, sides, amount=1):
         self._sides = 1
@@ -90,6 +67,9 @@ class Dice():
             raise ValueError("Invalid value for amount (given: '{}')".format(amount))
         self._amount = amount
 
+    def __repr__(self):
+        return "<Dice; sides={}; amount={}>".format(self.sides, self.amount)
+
     def roll(self):
         """ Role the dice and return a Score object """
         return Score([random.randint(1, self._sides) for _ in range(self._amount)])
@@ -123,22 +103,66 @@ class Score(int):
         [1,2,3]
 
     """
-    def __new__(cls, results):
-        score = super(Score, cls).__new__(cls, sum(results))
-        score._results = results
+    def __new__(cls, detail):
+        score = super(Score, cls).__new__(cls, sum(detail))
+        score._detail = detail
         return score
 
     @property
-    def results(self):
-        return self._results
+    def detail(self):
+        return self._detail
 
     def __repr__(self):
-        return "<<{} ({})>>".format(int(self), self.results)
+        return "<Score; score={}; detail={}>".format(self.detail, int(self))
 
     def __contains__(self, value):
-        return self.results.__contains__(value)
+        return self.detail.__contains__(value)
 
     def __iter__(self):
-        return self.results.__iter__()
+        return self.detail.__iter__()
 
-# print(roll("2*(2d1+1d1-1d1-3)//2"))
+
+class Pattern():
+    def __init__(self, instr):
+        self.instr = Pattern._normalize(instr)
+        self.dices = {}
+        self.format_string = ""
+
+    @staticmethod
+    def _normalize(instr):
+        """ normalize the incoming string to a lower string without spaces"""
+        return str(instr).replace(" ", "").lower()
+
+    def compile(self):
+
+        def _submatch(match):
+            dice = Dice.parse(match.group(0))
+            name = "d{}".format(len(self.dices) + 1)
+            self.dices[name] = dice
+            return "{{{}}}".format(name)
+
+        self.format_string = re.sub('\d+d\d+', _submatch, self.instr)
+
+    def roll(self):
+        if not self.format_string:
+            self.compile()
+        scores = {name: dice.roll() for name, dice in self.dices.items()}
+        return PatternScore(self.format_string, scores)
+
+class PatternScore(int):
+    def __new__(cls, eval_string, scores):
+        ps = super(PatternScore, cls).__new__(cls, _secured_eval(eval_string.format(**scores)))
+
+        ps._eval_string = eval_string
+        ps._scores = scores
+
+        return ps
+
+    def format(self):
+        return self._eval_string.format(**{name: str(list(score)) for name, score in self._scores.items()})
+
+    def score(self, i):
+        return self.scores[i]
+
+    def scores(self):
+        return self._scores
