@@ -10,6 +10,11 @@ import re
 
 __VERSION__ = 1.0
 
+# TODO: 'L', 'LX', 'H' and 'HX' notations: drop the x lowest or highest results => eg: 'AdXl3'
+# TODO: (?) 'Rx(...)' notation: roll x times the pattern in the parenthesis => eg: R3(1d4+3)
+# TODO: 'd%' notation: d% <=> d100
+# TODO: (?) Dice pools, 6-sided variations, 10-sided variations, Open-ended variations (https://en.wikipedia.org/wiki/Dice_notation)
+
 def compile(pattern_string):  # @ReservedAssignment
     p = Pattern(pattern_string)
     p.compile()
@@ -175,5 +180,3 @@ class PatternScore(int):
 
     def scores(self):
         return self._scores
-
-
