@@ -6,11 +6,11 @@ Options:
     -s               Numeric score only
 
     -h --help        Displays help message
-    --version        Displays current pydice version
+    --version        Displays current xdice version
 """
 import sys
 
-import dice
+import xdice
 
 def print_ex(string, exit_code=0):
     """ print and exit """
@@ -24,7 +24,7 @@ if "-h" in args:
     print_ex(__doc__)
 
 if "-v" in args:
-    print_ex("pydice {}".format(dice.__VERSION__))
+    print_ex("xdice {}".format(xdice.__VERSION__))
 
 score_only = False
 if "-s" in args:
@@ -32,12 +32,12 @@ if "-s" in args:
     args.remove("-s")
 
 if len(args) != 1:
-    print_ex("pydice CLI: invalid arguments\n" + __doc__, 1)
+    print_ex("xdice CLI: invalid arguments\n" + __doc__, 1)
 
 pattern_string = args[0]
 
-# Run pydice
-ps = dice.roll(pattern_string)
+# Run xdice
+ps = xdice.roll(pattern_string)
 
 if score_only:
     print(ps)

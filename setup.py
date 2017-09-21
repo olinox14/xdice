@@ -12,21 +12,21 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='pydice',
+    name='xdice',
 
     version='1.0.0',
 
-    description='Lightweight python library for managing dice, scores, and dice-notation patterns.',
+    description='Lightweight python library for managing xdice, scores, and xdice-notation patterns.',
     long_description=long_description,
 
-    url='https://github.com/cro-ki/pydice',
+    url='https://github.com/cro-ki/xdice',
 
     author='Olivier Massot',
     author_email='croki.contact@gmail.com',
 
     license='GNU',
 
-    py_modules=['dice', 'roll'],
+    py_modules=['xdice', 'roll'],
     python_requires='>=3.3',
 
     include_package_data=True,
@@ -49,6 +49,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    keywords='dice roll d20 game random parser dices role board',
+    keywords='xdice roll d20 game random parser dices role board',
 
 )

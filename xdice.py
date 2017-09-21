@@ -1,5 +1,5 @@
 '''
-    pydice is a lightweight python 3.3+ library for managing rolls of dice.
+    xdice is a lightweight python 3.3+ library for managing rolls of dice.
 
     License: GNU
 

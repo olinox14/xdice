@@ -1,6 +1,6 @@
-**pydice**
+**xdice**
 
-*pydice* is a lightweight python library for managing dice, scores, and dice-notation patterns.
+*xdice* is a lightweight python library for managing dice, scores, and dice-notation patterns.
 
 It allows to easily interpret literal expressions as rolls of dice ('1d6', '3d4+3', '12d6+1d4'...etc.), then manipulate the results.
 
@@ -10,7 +10,7 @@ DiceRollParser has been tested with python 3.3+
 
 ### Documentation
 
-See the **[full documentation](https://pydice.readthedocs.io/en/latest/)**
+See the **[full documentation](https://xdice.readthedocs.io/en/latest/)**
 
 #### Examples:  
 
@@ -52,7 +52,7 @@ Run `python roll.py [options] <expr>`
 	    -s               Numeric score only
 	
 	    -h --help        Displays help message
-	    --version        Displays current pydice version
+	    --version        Displays current xdice version
 
 
 #### CONTRIBUTION
@@ -61,11 +61,11 @@ Any opinion / contribution is welcome, please contact us.
 
 #### TO INSTALL
 
-	pip install pydice
+	pip install xdice
 
 #### License
 
-*pydice* is under GNU License
+*xdice* is under GNU License
 
 #### Author
 
