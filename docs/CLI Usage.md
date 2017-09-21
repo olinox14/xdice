@@ -15,12 +15,10 @@ Run `python roll.py [options] <expr>`
 
 * Basic use
 
-	python roll 1d6+1
-	
-	>> 2       ([1]+1)
+	`python roll 1d6+1`
+	`>> 2       ([1]+1)`
 	
 * Numeric score only
 
-	python roll -s 1d6+1
-	
-	>> 2
+	`python roll -s 1d6+1`
+	`>> 2`

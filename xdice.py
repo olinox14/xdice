@@ -91,8 +91,8 @@ class Score(int):
     """ Score is a subclass of integer.
     Then you can manipulate it as you would do with an integer.
 
-    It also provides an access to the detail with the property 'results'.
-    'results' is the list of the scores obtained by each dice.
+    It also provides an access to the detailed score with the property 'detail'.
+    'detail' is the list of the scores obtained by each dice.
 
     Score class can also be used as an iterable, to walk trough the individual scores.
 
