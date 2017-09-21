@@ -1,0 +1,154 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;no title&gt; &#8212; xdice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><strong>xdice</strong></p>
+<p><em>xdice</em> is a lightweight python library for managing dice, scores, and dice-notation patterns.</p>
+<p>It allows to easily interpret literal expressions as rolls of dice (‘1d6’, ‘3d4+3’, ‘12d6+1d4’…etc.), then manipulate the results.</p>
+<p>#### Python Versions</p>
+<p>DiceRollParser has been tested with python 3.3+</p>
+<p>#### Examples:</p>
+<blockquote>
+<div><p>import dice</p>
+<p>## Roll simple dices with <strong>rolldice()</strong></p>
+<p>score = rolldice(6, amount=2)</p>
+<p># manipulates score as an integer</p>
+<p>print( score, score * 2, score == 11 )
+&gt;&gt; 11           22              True</p>
+<p># Iterates over the results</p>
+<dl class="docutils">
+<dt>for result in score:</dt>
+<dd>print(result)</dd>
+</dl>
+<p>&gt;&gt; 5
+&gt;&gt; 6</p>
+<p># Parse patterns with <strong>roll()</strong></p>
+<p>ps = roll(“2d6+18”)</p>
+<p>print( ps, ps.format() )
+&gt;&gt; 28           ‘[5,6]+18’</p>
+</div></blockquote>
+<p>#### CLI</p>
+<p>Run <cite>python roll.py [options] &lt;expr&gt;</cite></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Usage:</dt>
+<dd>roll [options] &lt;expr&gt;</dd>
+<dt>Options:</dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-s</span></kbd></td>
+<td>Numeric score only</td></tr>
+</tbody>
+</table>
+<p class="last">-h –help        Displays help message
+–version        Displays current xdice version</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>#### CONTRIBUTION</p>
+<p>Any opinion / contribution is welcome, please contact us.</p>
+<p>#### TO INSTALL</p>
+<blockquote>
+<div>pip install xdice</div></blockquote>
+<p>#### License</p>
+<p><em>xdice</em> is under GNU License</p>
+<p>#### Author</p>
+<p>Olivier Massot, 2017, with <em>Cro-ki Lab</em></p>
+<p>#### Tags</p>
+<blockquote>
+<div>dice roll d20 game random parser dices role board</div></blockquote>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">xdice</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Olivier Massot.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
