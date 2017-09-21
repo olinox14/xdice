@@ -81,7 +81,7 @@
 
 > The list of parsed dice.
 
-> *Eg: '1d6+4+1d4' => [<Dice; sides=6;amount=1>, <Dice; sides=4;amount=1>]*
+> *Eg: '1d6+4+1d4' => [(Dice; sides=6;amount=1), (Dice; sides=4;amount=1)]*
 
 #### pattern.roll()
 
