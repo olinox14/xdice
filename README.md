@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cro-ki/xdice.svg?branch=master)](https://travis-ci.org/cro-ki/xdice) [![Coverage Status](https://coveralls.io/repos/github/cro-ki/xdice/badge.svg?branch=master)](https://coveralls.io/github/cro-ki/xdice?branch=master) [![Documentation Status](https://readthedocs.org/projects/xdice/badge/?version=latest)](http://xdice.readthedocs.io/en/latest/?badge=latest)
+
 **xdice**
 
 *xdice* is a lightweight python library for managing dice, scores, and dice-notation patterns.
