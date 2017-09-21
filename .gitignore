@@ -2,4 +2,5 @@
 .project
 .pydevproject
 .coverage
+.settings/
 htmlcov/*

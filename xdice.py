@@ -34,6 +34,8 @@ class Dice():
 
     Use roll() to get a Score() object.
     """
+    DEFAULT_SIDES = 20
+
     def __init__(self, sides, amount=1):
         self._sides = 1
         self._amount = 0
@@ -80,12 +82,15 @@ class Dice():
     @classmethod
     def parse(cls, pattern):
         """ parse a pattern of the form 'xdx', where x are positive integers """
-        # normalize
         pattern = str(pattern).replace(" ", "").lower()
-        # parse
-        amount, faces = (int(x) for x in pattern.split("d"))
-        # instanciate
-        return Dice(faces, amount)
+
+        a, x = pattern.split("d")
+        if not a:
+            a = 1
+        if not x:
+            x = cls.DEFAULT_SIDES
+
+        return Dice(*map(int, [x, a]))
 
 class Score(int):
     """ Score is a subclass of integer.
@@ -145,7 +150,7 @@ class Pattern():
             self.dices.append(dice)
             return "{{{}}}".format(index)
 
-        self.format_string = re.sub('\d+d\d+', _submatch, self.instr)
+        self.format_string = re.sub('\d*d\d*', _submatch, self.instr)
 
     def roll(self):
         if not self.format_string:

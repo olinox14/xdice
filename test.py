@@ -40,13 +40,13 @@ class Test(unittest.TestCase):
         xdice.roll("abs(1d6-1d10)")
         xdice.roll("max(1d6,2d4)")
         xdice.roll("min(1d6,2d4)")
+        xdice.roll("d")
+        xdice.roll("2d")
+        xdice.roll("d6")
 
         # test invalid expressions
-        self.assertRaises(SyntaxError, xdice.roll, "1d-8")
-        self.assertRaises(SyntaxError, xdice.roll, "1d")
         self.assertRaises(ValueError, xdice.roll, "")
         self.assertRaises(ValueError, xdice.roll, "1d0")
-        self.assertRaises(TypeError, xdice.roll, "d6")
         self.assertRaises(TypeError, xdice.roll, "abc")
         self.assertRaises(TypeError, xdice.roll, "1d2,3")
 

@@ -8,7 +8,7 @@ It allows to easily interpret literal expressions as rolls of dice ('1d6', '3d4+
 
 #### Python Versions
 
-DiceRollParser has been tested with python 3.3+
+DiceRollParser has been tested with **python 3.3+**
 
 ### Documentation
 
