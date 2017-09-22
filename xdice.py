@@ -8,7 +8,7 @@
 import random
 import re
 
-__VERSION__ = 1.0
+__VERSION__ = 1.1
 
 # TODO: (?) 'Rx(...)' notation: roll x times the pattern in the parenthesis => eg: R3(1d4+3)
 # TODO: (?) Dice pools, 6-sided variations, 10-sided variations,

@@ -8,15 +8,15 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, r'docs\_build\html\index.html'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='xdice',
 
-    version='1.0.0',
+    version='1.1.0',
 
-    description='Lightweight python library for managing xdice, scores, and xdice-notation patterns.',
+    description='The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.',
     long_description=long_description,
 
     url='https://github.com/cro-ki/xdice',
