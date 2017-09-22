@@ -4,6 +4,7 @@ Usage:
 
 Options:
     -s               Numeric score only
+    -v               Verbose result
 
     -h --help        Displays help message
     --version        Displays current xdice version
@@ -12,7 +13,7 @@ import sys
 
 import xdice
 
-def print_ex(string, exit_code=0):
+def _print_and_exit(string, exit_code=0):
     """ print and exit """
     print(string)
     sys.exit(exit_code)
@@ -21,18 +22,23 @@ def print_ex(string, exit_code=0):
 args = sys.argv[1:]
 
 if "-h" in args:
-    print_ex(__doc__)
+    _print_and_exit(__doc__)
 
-if "-v" in args:
-    print_ex("xdice {}".format(xdice.__VERSION__))
+if "--version" in args:
+    _print_and_exit("xdice {}".format(xdice.__VERSION__))
 
 score_only = False
 if "-s" in args:
     score_only = True
     args.remove("-s")
 
+verbose = False
+if "-v" in args:
+    verbose = True
+    args.remove("-v")
+
 if len(args) != 1:
-    print_ex("xdice CLI: invalid arguments\n" + __doc__, 1)
+    _print_and_exit("xdice CLI: invalid arguments\n" + __doc__, 1)
 
 pattern_string = args[0]
 
@@ -42,4 +48,4 @@ ps = xdice.roll(pattern_string)
 if score_only:
     print(ps)
 else:
-    print("{}\t({})".format(ps, ps.format()))
+    print("{}\t({})".format(ps, ps.format(verbose)))

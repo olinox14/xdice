@@ -43,12 +43,26 @@ class Test(unittest.TestCase):
         xdice.roll("d")
         xdice.roll("2d")
         xdice.roll("d6")
+        xdice.roll("3d6l")
+        xdice.roll("3d6l2")
+        xdice.roll("3d6h")
+        xdice.roll("3d6h2")
+        xdice.roll("6d6lh")
+        xdice.roll("6d6lh2")
+        xdice.roll("6d6l2h")
+        xdice.roll("6d6l2h2")
+        xdice.roll("3dlh")
+        xdice.roll("1d%")
+        xdice.roll("d%")
 
         # test invalid expressions
         self.assertRaises(ValueError, xdice.roll, "")
         self.assertRaises(ValueError, xdice.roll, "1d0")
         self.assertRaises(TypeError, xdice.roll, "abc")
         self.assertRaises(TypeError, xdice.roll, "1d2,3")
+        self.assertRaises(ValueError, xdice.roll, "1d6l2")
+        self.assertRaises(ValueError, xdice.roll, "1d6h2")
+        self.assertRaises(ValueError, xdice.roll, "1d6lh")
 
     def test_dice_object(self):
 
@@ -67,6 +81,8 @@ class Test(unittest.TestCase):
         self.assertEqual(xdice.Dice(1, 6).roll(), 6)
 
         self.assertEqual(xdice.Dice.parse("6d1").roll(), 6)
+        self.assertRaises(ValueError, xdice.Dice.parse, "a1d6")
+        self.assertEqual(xdice.Dice.parse("6d1h1").roll().name, "6d1h1")
 
     def test_score_object(self):
 
@@ -77,14 +93,16 @@ class Test(unittest.TestCase):
         self.assertEqual(list(s), [1, 2, 3])
         self.assertEqual(s.detail, [1, 2, 3])
         self.assertTrue(1 in s)
-        self.assertEqual(s.__repr__(), "<Score; score=6; detail=[1, 2, 3]>")
+        self.assertEqual(s.__repr__(), "<Score; score=6; detail=[1, 2, 3]; dropped=[]; name=>")
 
+        s = xdice.Score([1, 2, 3], dropped=[1], name='foo')
+        self.assertEqual(s.__repr__(), "<Score; score=6; detail=[1, 2, 3]; dropped=[1]; name=foo>")
 
     def test_pattern_object(self):
 
         p = xdice.Pattern("6d1+6")
 
-        self.assertEqual(p._normalize("1 D 6"), "1d6")
+        self.assertEqual(xdice._normalize("1 D 6"), "1d6")
 
         p.compile()
         self.assertEqual(p.format_string, "{0}+6")
@@ -99,6 +117,7 @@ class Test(unittest.TestCase):
         self.assertEqual(ps.score(0), 6)
         self.assertEqual(ps.scores(), [6])
         self.assertEqual(ps.format(), "[1, 1, 1, 1, 1, 1]+6")
+        self.assertEqual(ps.format(verbose=True), " (scores:[1, 1, 1, 1, 1, 1]) +6")
 
     def test_compile(self):
         p1 = xdice.compile("6d1+6")

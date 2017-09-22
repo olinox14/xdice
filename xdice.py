@@ -10,9 +10,7 @@ import re
 
 __VERSION__ = 1.0
 
-# TODO: 'L', 'LX', 'H' and 'HX' notations: drop the x lowest or highest results => eg: 'AdXl3'
 # TODO: (?) 'Rx(...)' notation: roll x times the pattern in the parenthesis => eg: R3(1d4+3)
-# TODO: 'd%' notation: d% <=> d100
 # TODO: (?) Dice pools, 6-sided variations, 10-sided variations,
 # Open-ended variations (https://en.wikipedia.org/wiki/Dice_notation)
 
@@ -45,6 +43,22 @@ def _secured_eval(raw):
     by avoiding the use of any non-allowed function """
     return eval(raw, {"__builtins__":None}, _ALLOWED)
 
+def _assert_int_ge_to(value, threshold=0, msg=""):
+    """ assert value is an integer greater or equal to threshold """
+    try:
+        if int(value) < threshold:
+            raise ValueError()
+    except (TypeError, ValueError):
+        raise ValueError(msg)
+
+def _split_list(lst, left, right):
+    """ divides a list in 3 sections: [:left], [left:right], [right:]
+    return a tuple of lists"""
+    return lst[:left], lst[left:right], lst[right:]
+
+def _normalize(pattern):
+    return str(pattern).replace(" ", "").lower().replace("d%", "d100")
+
 class Dice():
     """
     Dice(sides, amount=1):
@@ -53,14 +67,20 @@ class Dice():
     Use roll() to get a Score() object.
     """
     DEFAULT_SIDES = 20
+    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?"
+    DICE_RE = re.compile(DICE_RE_STR)
 
-    def __init__(self, sides, amount=1):
-        """ Instanciate a Die object """
+    def __init__(self, sides, amount=1, drop_lowest=0, drop_highest=0):
+        """ Instantiate a Die object """
         self._sides = 1
         self._amount = 0
+        self._drop_lowest = 0
+        self._drop_highest = 0
 
         self.sides = sides
         self.amount = amount
+        self.drop_lowest = drop_lowest
+        self.drop_highest = drop_highest
 
     @property
     def sides(self):
@@ -70,11 +90,7 @@ class Dice():
     @sides.setter
     def sides(self, sides):
         """ Set the number of faces of the dice """
-        try:
-            if int(sides) < 1:
-                raise ValueError()
-        except (TypeError, ValueError):
-            raise ValueError("Invalid value for sides (given: '{}')".format(sides))
+        _assert_int_ge_to(sides, 1, "Invalid value for sides ('{}')".format(sides))
         self._sides = sides
 
     @property
@@ -85,12 +101,42 @@ class Dice():
     @amount.setter
     def amount(self, amount):
         """ Set the amount of dice """
-        try:
-            if int(amount) < 0:
-                raise ValueError()
-        except (TypeError, ValueError):
-            raise ValueError("Invalid value for amount (given: '{}')".format(amount))
+        _assert_int_ge_to(amount, 0, "Invalid value for amount ('{}')".format(amount))
         self._amount = amount
+
+    @property
+    def drop_lowest(self):
+        """ The N lowest dices to ignore """
+        return self._drop_lowest
+
+    @drop_lowest.setter
+    def drop_lowest(self, drop_lowest):
+        """ Set the number of lowest dices to ignore """
+        _assert_int_ge_to(drop_lowest, 0, "Invalid value for drop_lowest ('{}')".format(drop_lowest))
+        if self.drop_highest + drop_lowest > self.amount:
+            raise ValueError("You can not drop more dice than amount")
+        self._drop_lowest = drop_lowest
+
+    @property
+    def drop_highest(self):
+        """ The N highest dices to ignore """
+        return self._drop_highest
+
+    @drop_highest.setter
+    def drop_highest(self, drop_highest):
+        """ Set the number of highest dices to ignore """
+        _assert_int_ge_to(drop_highest, 0, "Invalid value for drop_highest ('{}')".format(drop_highest))
+        if self.drop_lowest + drop_highest > self.amount:
+            raise ValueError("You can not drop more dice than amount")
+        self._drop_highest = drop_highest
+
+    @property
+    def name(self):
+        """ build the name of the Dice """
+        return "{}d{}{}{}".format(self._amount,
+                                  self._sides,
+                                  "l{}".format(self._drop_lowest) if self._drop_lowest else "",
+                                  "h{}".format(self._drop_highest) if self._drop_highest else "")
 
     def __repr__(self):
         """ Return a string representation of the Dice """
@@ -105,20 +151,30 @@ class Dice():
 
     def roll(self):
         """ Role the dice and return a Score object """
-        return Score([random.randint(1, self._sides) for _ in range(self._amount)])
+        # Sort results
+        results = sorted([random.randint(1, self._sides) for _ in range(self._amount)])
+        # Drop the lowest / highest results
+        lowest, results, highest = _split_list(results, self._drop_lowest, len(results) - self._drop_highest)
+
+        return Score(results, lowest + highest, self.name)
 
     @classmethod
     def parse(cls, pattern):
         """ parse a pattern of the form 'xdx', where x are positive integers """
-        pattern = str(pattern).replace(" ", "").lower()
+        pattern = _normalize(pattern)
 
-        amount, sides = pattern.split("d")
-        if not amount:
-            amount = 1
-        if not sides:
-            sides = cls.DEFAULT_SIDES
+        match = cls.DICE_RE.match(pattern)
+        if match is None:
+            raise ValueError("Invalid Dice pattern ('{}')".format(pattern))
 
-        return Dice(*map(int, [sides, amount]))
+        amount, sides, lowest, highest = match.groups()
+
+        amount = amount or 1
+        sides = sides or cls.DEFAULT_SIDES
+        lowest = (lowest or 1) if lowest is not None else 0
+        highest = (highest or 1) if highest is not None else 0
+
+        return Dice(*map(int, [sides, amount, lowest, highest]))
 
 class Score(int):
     """ Score is a subclass of integer.
@@ -139,13 +195,15 @@ class Score(int):
         [1,2,3]
 
     """
-    def __new__(cls, detail):
+    def __new__(cls, detail, dropped=[], name=""):
         """
         detail should only contain integers
         Score value will be the sum of the list's values.
         """
         score = super(Score, cls).__new__(cls, sum(detail))
         score._detail = detail
+        score._dropped = dropped
+        score._name = name
         return score
 
     @property
@@ -157,7 +215,22 @@ class Score(int):
 
     def __repr__(self):
         """ Return a string representation of the Score """
-        return "<Score; score={}; detail={}>".format(int(self), self.detail)
+        return "<Score; score={}; detail={}; dropped={}; name={}>".format(int(self),
+                                                                          self.detail,
+                                                                          self.dropped,
+                                                                          self.name)
+
+    def format(self, verbose=False):
+        """
+        Return a formatted string detailing the score of the Dice roll.
+        > Eg: '3d6' => '[1,5,6]'
+        """
+        basestr = str(list(self.detail))
+        if not verbose:
+            return basestr
+        else:
+            droppedstr = ", dropped:{}".format(self.dropped) if verbose and self.dropped else ""
+            return " {}(scores:{}{}) ".format(self._name, basestr, droppedstr)
 
     def __contains__(self, value):
         """ Does score contains the given result """
@@ -167,20 +240,26 @@ class Score(int):
         """ Iterate over results """
         return self.detail.__iter__()
 
+    @property
+    def dropped(self):
+        """ list of dropped results """
+        return self._dropped
+
+    @property
+    def name(self):
+        """ descriptive name of the score """
+        return self._name
+
+
 class Pattern():
     """ A dice-notation pattern """
     def __init__(self, instr):
         """ Instantiate a Pattern object. """
         if not instr:
             raise ValueError("Invalid value for 'instr' ('{}')".format(instr))
-        self.instr = Pattern._normalize(instr)
+        self.instr = _normalize(instr)
         self.dices = []
         self.format_string = ""
-
-    @staticmethod
-    def _normalize(instr):
-        """ normalize the incoming string to a lower string without spaces"""
-        return str(instr).replace(" ", "").lower()
 
     def compile(self):
         """
@@ -200,7 +279,7 @@ class Pattern():
             self.dices.append(dice)
             return "{{{}}}".format(index)
 
-        self.format_string = re.sub(r'\d*d\d*', _submatch, self.instr)
+        self.format_string = Dice.DICE_RE.sub(_submatch, self.instr)
 
     def roll(self):
         """
@@ -215,7 +294,8 @@ class Pattern():
 class PatternScore(int):
     """
     PatternScore is a subclass of integer, you can then manipulate it as you would do with an integer.
-    Moreover, you can get the list of the scores with the score(i) or scores() methods, and retrieve a formatted result with the format() method.
+    Moreover, you can get the list of the scores with the score(i)
+    or scores() methods, and retrieve a formatted result with the format() method.
     """
     def __new__(cls, eval_string, scores):
         ps = super(PatternScore, cls).__new__(cls, _secured_eval(eval_string.format(*scores)))
@@ -225,12 +305,12 @@ class PatternScore(int):
 
         return ps
 
-    def format(self):
+    def format(self, verbose=False):
         """
         Return a formatted string detailing the result of the roll.
         > Eg: '3d6+4' => '[1,5,6]+4'
         """
-        return self._eval_string.format(*[str(list(score)) for score in self._scores])
+        return self._eval_string.format(*[score.format(verbose) for score in self._scores])
 
     def score(self, i):
         """ Returns the Score object at index i. """
