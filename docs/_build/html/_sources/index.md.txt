@@ -1,14 +1,14 @@
-**xdice**
+# XDice
 
 *xdice* is a lightweight python library for managing dice, scores, and dice-notation patterns.
 
 It allows to easily interpret literal expressions as rolls of dice ('1d6', '3d4+3', '12d6+1d4'...etc.), then manipulate the results.
 
-#### Python Versions
+### Python Versions
 
 DiceRollParser has been tested with python 3.3+
 
-#### Examples:  
+### Examples
 
 	import dice
 
@@ -37,37 +37,19 @@ DiceRollParser has been tested with python 3.3+
 	>> 28		'[5,6]+18'
 
 
-#### CLI
-
-Run `python roll.py [options] <expr>`
-	
-	Usage:
-	    roll [options] <expr>
-	
-	Options:
-	    -s               Numeric score only
-	
-	    -h --help        Displays help message
-	    --version        Displays current xdice version
-
-
-#### CONTRIBUTION
+### Contribution
 
 Any opinion / contribution is welcome, please contact us.
 
-#### TO INSTALL
+### Installation
 
 	pip install xdice
 
-#### License
+### License
 
 *xdice* is under GNU License
 
-#### Author
-
-Olivier Massot, 2017, with *Cro-ki Lab*
-
-#### Tags
+### Tags
 
 	dice roll d20 game random parser dices role board
 	

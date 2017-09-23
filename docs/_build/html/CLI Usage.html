@@ -38,41 +38,42 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p># XDice</p>
-<p><em>xdice</em> is a lightweight python library for managing dice, scores, and dice-notation patterns.</p>
-<p>It allows to easily interpret literal expressions as rolls of dice (‘1d6’, ‘3d4+3’, ‘12d6+1d4’…etc.), then manipulate the results.</p>
-<p>### Python Versions</p>
-<p>DiceRollParser has been tested with python 3.3+</p>
-<p>### Examples</p>
+  <p># XDice Command-Line</p>
+<p>Run <cite>python roll.py [options] &lt;expr&gt;</cite></p>
 <blockquote>
-<div><p>import dice</p>
-<p>## Roll simple dices with <strong>rolldice()</strong></p>
-<p>score = rolldice(6, amount=2)</p>
-<p># manipulates score as an integer</p>
-<p>print( score, score * 2, score == 11 )
-&gt;&gt; 11           22              True</p>
-<p># Iterates over the results</p>
-<dl class="docutils">
-<dt>for result in score:</dt>
-<dd>print(result)</dd>
+<div><dl class="docutils">
+<dt>Usage:</dt>
+<dd>roll [options] &lt;expr&gt;</dd>
+<dt>Options:</dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-s</span></kbd></td>
+<td>Numeric score only</td></tr>
+</tbody>
+</table>
+<p class="last">-h –help        Displays help message
+–version        Displays current xdice version</p>
+</dd>
 </dl>
-<p>&gt;&gt; 5
-&gt;&gt; 6</p>
-<p># Parse patterns with <strong>roll()</strong></p>
-<p>ps = roll(“2d6+18”)</p>
-<p>print( ps, ps.format() )
-&gt;&gt; 28           ‘[5,6]+18’</p>
 </div></blockquote>
-<p>### Contribution</p>
-<p>Any opinion / contribution is welcome, please contact us.</p>
-<p>### Installation</p>
+<p>### Examples</p>
+<ul>
+<li><p class="first">Basic use</p>
 <blockquote>
-<div>pip install xdice</div></blockquote>
-<p>### License</p>
-<p><em>xdice</em> is under GNU License</p>
-<p>### Tags</p>
+<div><p><cite>python roll 1d6+1</cite>
+<cite>&gt;&gt; 2       ([1]+1)</cite></p>
+</div></blockquote>
+</li>
+<li><p class="first">Numeric score only</p>
 <blockquote>
-<div>dice roll d20 game random parser dices role board</div></blockquote>
+<div><p><cite>python roll -s 1d6+1</cite>
+<cite>&gt;&gt; 2</cite></p>
+</div></blockquote>
+</li>
+</ul>
 
 
           </div>
@@ -80,7 +81,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">xdice</a></h1>
+<h1 class="logo"><a href="index.html">xdice</a></h1>
 
 
 
@@ -94,7 +95,7 @@
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="#">Documentation overview</a><ul>
+  <li><a href="index.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
@@ -120,7 +121,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/index.md.txt"
+      <a href="_sources/CLI Usage.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,0 +1,168 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;no title&gt; &#8212; xdice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p># API</p>
+<p>#### xdice.compile(pattern_string)</p>
+<p>&gt; <em>Similar to `xdice.Pattern(pattern_string).compile()`</em></p>
+<p>&gt; Returns a compiled Pattern object.</p>
+<p>&gt; Pattern object can then be rolled to obtain a PatternScore object.</p>
+<p>#### xdice.roll(pattern_string)</p>
+<p>&gt; <em>Similar to `xdice.Pattern(pattern_string).roll()`</em></p>
+<p>#### xdice.rolldice(faces, amount=1)</p>
+<p>&gt; <em>Similar to `xdice.Dice(faces, amount).roll()`</em></p>
+<p>## Dice object</p>
+<p>&gt; Set of dice.</p>
+<p>#### Dice.__init__(sides, amount=1)</p>
+<p>&gt; Instantiate a set of dice.</p>
+<p>#### dice.roll()</p>
+<p>&gt; Role the dice and return a Score object</p>
+<p>####*[classmethod]* Dice.parse(cls, pattern)</p>
+<p>&gt; Parse a pattern of the form ‘AdX’, where A and X are positive integers.
+&gt; Returns the corresponding Dice object.</p>
+<p>## Score object</p>
+<p>&gt; Score is a subclass of integer, you can then manipulate it as you would do with an integer.</p>
+<dl class="docutils">
+<dt>&gt; It also provides an access to the detailed score with the property ‘detail’.</dt>
+<dd>‘detail’ is the list of the scores obtained by each dice.</dd>
+</dl>
+<p>&gt; Score class can also be used as an iterable, to walk trough the individual scores.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>eg:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Score</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">[1,2,3]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p>#### Score.__new__(iterable)</p>
+<p>&gt;*`iterable` should only contain integers*</p>
+<p>&gt; Score value will be the sum of the list’s values.</p>
+<p>## Pattern object</p>
+<p>&gt; Dice notation pattern.</p>
+<p>#### Pattern.__init__(instr)</p>
+<p>&gt; Instantiate a Pattern object.</p>
+<p>#### pattern.compile()</p>
+<p>&gt; Parse the pattern. Two properties are updated at this time:</p>
+<ul class="simple">
+<li><em>pattern.format_string</em></li>
+</ul>
+<p>&gt; The ready-to-be-formatted string built from the <cite>instr</cite> argument.</p>
+<p>&gt; <em>Eg: ‘1d6+4+1d4’ =&gt; ‘{0}+4-{1}’</em></p>
+<ul class="simple">
+<li><em>pattern.dices</em></li>
+</ul>
+<p>&gt; The list of parsed dice.</p>
+<p>&gt; <em>Eg: ‘1d6+4+1d4’ =&gt; [(Dice; sides=6;amount=1), (Dice; sides=4;amount=1)]</em></p>
+<p>#### pattern.roll()</p>
+<p>&gt; Compile the pattern if it has not been yet, then roll the dice.</p>
+<p>&gt; Return a PatternScore object.</p>
+<p>## PatternScore object</p>
+<p>&gt; PatternScore is a subclass of <strong>integer</strong>, you can then manipulate it as you would do with an integer.</p>
+<p>&gt; Moreover, you can get the list of the scores with the score(i) or scores() methods, and retrieve a formatted result with the format() method.</p>
+<p>#### pattern_score.scores()</p>
+<p>&gt; Returns the list of Score objects extracted from the pattern and rolled.</p>
+<p>#### pattern_score.score(i)</p>
+<p>&gt; Returns the Score object at index i.</p>
+<p>#### pattern_score.format()</p>
+<p>&gt; Return a formatted string detailing the result of the roll.</p>
+<p>&gt; <em>Eg: ‘3d6+4’ =&gt; ‘[1,5,6]+4’</em></p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">xdice</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Olivier Massot.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/API.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
