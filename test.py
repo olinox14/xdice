@@ -54,6 +54,7 @@ class Test(unittest.TestCase):
         xdice.roll("3dlh")
         xdice.roll("1d%")
         xdice.roll("d%")
+        xdice.roll("1+R3(1d6+1)")
 
         # test invalid expressions
         self.assertRaises(ValueError, xdice.roll, "")
@@ -63,6 +64,7 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, xdice.roll, "1d6l2")
         self.assertRaises(ValueError, xdice.roll, "1d6h2")
         self.assertRaises(ValueError, xdice.roll, "1d6lh")
+        self.assertRaises(SyntaxError, xdice.roll, "1+R3(1d6+1")
 
     def test_dice_object(self):
 
@@ -114,15 +116,19 @@ class Test(unittest.TestCase):
 
     def test_pattern_object(self):
 
-        p = xdice.Pattern("6d1+6")
-
         self.assertEqual(xdice._normalize("1 D 6"), "1d6")
 
+        p = xdice.Pattern("6d1+6")
         p.compile()
         self.assertEqual(p.format_string, "{0}+6")
         self.assertEqual(p.dices, [xdice.Dice(1, 6)])
-
         self.assertEqual(p.roll(), 12)
+
+        p = xdice.Pattern("R2(6d1+6)")
+        p.compile()
+        self.assertEqual(p.format_string, "({0}+6+{1}+6)")
+        self.assertEqual(p.dices, [xdice.Dice(1, 6), xdice.Dice(1, 6)])
+        self.assertEqual(p.roll(), 24)
 
     def test_patternscore_objet(self):
         ps = xdice.PatternScore("{0}+6", [xdice.Score([1, 1, 1, 1, 1, 1])])
@@ -131,7 +137,7 @@ class Test(unittest.TestCase):
         self.assertEqual(ps.score(0), 6)
         self.assertEqual(ps.scores(), [6])
         self.assertEqual(ps.format(), "[1, 1, 1, 1, 1, 1]+6")
-        self.assertEqual(ps.format(verbose=True), " (scores:[1, 1, 1, 1, 1, 1]) +6")
+        self.assertEqual(ps.format(verbose=True), "(scores:[1, 1, 1, 1, 1, 1])+6")
 
     def test_compile(self):
         p1 = xdice.compile("6d1+6")

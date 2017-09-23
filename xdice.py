@@ -10,7 +10,6 @@ import re
 
 __VERSION__ = 1.1
 
-# TODO: (?) 'Rx(...)' notation: roll x times the pattern in the parenthesis => eg: R3(1d4+3)
 # TODO: (?) Dice pools, 6-sided variations, 10-sided variations,
 # Open-ended variations (https://en.wikipedia.org/wiki/Dice_notation)
 
@@ -50,11 +49,6 @@ def _assert_int_ge_to(value, threshold=0, msg=""):
             raise ValueError()
     except (TypeError, ValueError):
         raise ValueError(msg)
-
-def _split_list(lst, left, right):
-    """ divides a list in 3 sections: [:left], [left:right], [right:]
-    return a tuple of lists"""
-    return lst[:left], lst[left:right], lst[right:]
 
 def _pop_lowest(lst):
     """ pop the lowest value from the list
@@ -242,7 +236,7 @@ class Score(int):
             return basestr
         else:
             droppedstr = ", dropped:{}".format(self.dropped) if verbose and self.dropped else ""
-            return " {}(scores:{}{}) ".format(self._name, basestr, droppedstr)
+            return "{}(scores:{}{})".format(self._name, basestr, droppedstr)
 
     def __contains__(self, value):
         """ Does score contains the given result """
@@ -265,6 +259,8 @@ class Score(int):
 
 class Pattern():
     """ A dice-notation pattern """
+    RE_REPEAT = re.compile(r"(?:r(\d*)\((.*)\))")
+
     def __init__(self, instr):
         """ Instantiate a Pattern object. """
         if not instr:
@@ -291,7 +287,8 @@ class Pattern():
             self.dices.append(dice)
             return "{{{}}}".format(index)
 
-        self.format_string = Dice.DICE_RE.sub(_submatch, self.instr)
+        expandedstr = Pattern.parse_repeat(self.instr)
+        self.format_string = Dice.DICE_RE.sub(_submatch, expandedstr)
 
     def roll(self):
         """
@@ -302,6 +299,18 @@ class Pattern():
             self.compile()
         scores = [dice.roll() for dice in self.dices]
         return PatternScore(self.format_string, scores)
+
+    @classmethod
+    def parse_repeat(cls, pattern):
+        """ parse a pattern to replace the rX(expr) patterns by (expr + ... + expr) [X times] """
+        return cls.RE_REPEAT.sub(cls._sub_repeat, pattern)
+
+    @classmethod
+    def _sub_repeat(cls, match):
+        """ internal """
+        repeat, expr = match.groups()
+        return "({})".format("+".join([expr for _ in range(int(repeat))]))
+
 
 class PatternScore(int):
     """
