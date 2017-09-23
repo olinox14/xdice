@@ -1,8 +1,13 @@
-MANIFEST.in
-README.md
+README.rst
 roll.py
 setup.py
 xdice.py
+docs/_build/html/.buildinfo
+docs/_build/html/genindex.html
+docs/_build/html/index.html
+docs/_build/html/objects.inv
+docs/_build/html/search.html
+docs/_build/html/searchindex.js
 xdice.egg-info/PKG-INFO
 xdice.egg-info/SOURCES.txt
 xdice.egg-info/dependency_links.txt
