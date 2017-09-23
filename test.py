@@ -70,6 +70,9 @@ class Test(unittest.TestCase):
         self.assertEqual(d.sides, 6)
         self.assertEqual(d.amount, 6)
         self.assertEqual(d.__repr__(), "<Dice; sides=6; amount=6>")
+        d.drop_lowest = 1
+        d.drop_highest = 1
+        self.assertEqual(d.__repr__(), "<Dice; sides=6; amount=6; drop_lowest=1; drop_highest=1>")
 
         self.assertRaises(ValueError, setattr, d, "sides", -1)
         self.assertRaises(ValueError, setattr, d, "sides", "a")
@@ -77,12 +80,23 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, setattr, d, "amount", -1)
         self.assertRaises(ValueError, setattr, d, "amount", "a")
         self.assertRaises(ValueError, setattr, d, "amount", None)
+        self.assertRaises(ValueError, setattr, d, "drop_lowest", -1)
+        self.assertRaises(ValueError, setattr, d, "drop_lowest", "a")
+        self.assertRaises(ValueError, setattr, d, "drop_lowest", None)
+        self.assertRaises(ValueError, setattr, d, "drop_highest", -1)
+        self.assertRaises(ValueError, setattr, d, "drop_highest", "a")
+        self.assertRaises(ValueError, setattr, d, "drop_highest", None)
 
         self.assertEqual(xdice.Dice(1, 6).roll(), 6)
+        self.assertEqual(xdice.Dice(1, 6, 1).roll(), 5)
+        self.assertEqual(xdice.Dice(1, 6, 0, 1).roll(), 5)
+        self.assertEqual(xdice.Dice(1, 6, 1, 1).roll(), 4)
+        self.assertEqual(xdice.Dice(1, 6, 3, 3).roll(), 0)
 
         self.assertEqual(xdice.Dice.parse("6d1").roll(), 6)
         self.assertRaises(ValueError, xdice.Dice.parse, "a1d6")
         self.assertEqual(xdice.Dice.parse("6d1h1").roll().name, "6d1h1")
+        self.assertEqual(xdice.Dice.parse("6 D 1h1").roll().name, "6d1h1")
 
     def test_score_object(self):
 

@@ -151,7 +151,9 @@ class Dice():
 
     def __repr__(self):
         """ Return a string representation of the Dice """
-        return "<Dice; sides={}; amount={}>".format(self.sides, self.amount)
+        lowstr = "; drop_lowest={}".format(self.drop_lowest) if self.drop_lowest else ""
+        highstr = "; drop_highest={}".format(self.drop_highest) if self.drop_highest else ""
+        return "<Dice; sides={}; amount={}{}{}>".format(self.sides, self.amount, lowstr, highstr)
 
     def __eq__(self, d):
         """
