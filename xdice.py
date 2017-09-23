@@ -56,6 +56,17 @@ def _split_list(lst, left, right):
     return a tuple of lists"""
     return lst[:left], lst[left:right], lst[right:]
 
+def _pop_lowest(lst):
+    """ pop the lowest value from the list
+    return the popped value"""
+    return lst.pop(lst.index(min(lst)))
+
+def _pop_highest(lst):
+    """ pop the highest value from the list
+    return a tuple (new list, popped value)"""
+    highest = lst.pop(lst.index(max(lst)))
+    return highest
+
 def _normalize(pattern):
     return str(pattern).replace(" ", "").lower().replace("d%", "d100")
 
@@ -106,12 +117,12 @@ class Dice():
 
     @property
     def drop_lowest(self):
-        """ The N lowest dices to ignore """
+        """ The amount of lowest dices to ignore """
         return self._drop_lowest
 
     @drop_lowest.setter
     def drop_lowest(self, drop_lowest):
-        """ Set the number of lowest dices to ignore """
+        """ Set the amount of lowest dices to ignore """
         _assert_int_ge_to(drop_lowest, 0, "Invalid value for drop_lowest ('{}')".format(drop_lowest))
         if self.drop_highest + drop_lowest > self.amount:
             raise ValueError("You can not drop more dice than amount")
@@ -119,12 +130,12 @@ class Dice():
 
     @property
     def drop_highest(self):
-        """ The N highest dices to ignore """
+        """ The amount of highest dices to ignore """
         return self._drop_highest
 
     @drop_highest.setter
     def drop_highest(self, drop_highest):
-        """ Set the number of highest dices to ignore """
+        """ Set the amount highest dices to ignore """
         _assert_int_ge_to(drop_highest, 0, "Invalid value for drop_highest ('{}')".format(drop_highest))
         if self.drop_lowest + drop_highest > self.amount:
             raise ValueError("You can not drop more dice than amount")
@@ -152,11 +163,10 @@ class Dice():
     def roll(self):
         """ Role the dice and return a Score object """
         # Sort results
-        results = sorted([random.randint(1, self._sides) for _ in range(self._amount)])
-        # Drop the lowest / highest results
-        lowest, results, highest = _split_list(results, self._drop_lowest, len(results) - self._drop_highest)
-
-        return Score(results, lowest + highest, self.name)
+        results = [random.randint(1, self._sides) for _ in range(self._amount)]
+        dropped = [_pop_lowest(results) for _ in range(self._drop_lowest)] + \
+                    [_pop_highest(results) for _ in range(self._drop_highest)]
+        return Score(results, dropped, self.name)
 
     @classmethod
     def parse(cls, pattern):
