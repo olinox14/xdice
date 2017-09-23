@@ -3,18 +3,19 @@
 @author: olinox14, 2017
 """
 
-from setuptools import setup
 from os import path
+
+from setuptools import setup
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, r'docs\_build\html\index.html'), encoding='utf-8') as f:
+with open("README.rst") as f:
     long_description = f.read()
 
 setup(
     name='xdice',
 
-    version='1.1.0',
+    version='1.1.3',
 
     description='The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.',
     long_description=long_description,
