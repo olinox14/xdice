@@ -1,0 +1,153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Introduction &#8212; xdice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dice Notation" href="dice_notation.html" />
+    <link rel="prev" title="Welcome to the documentation for xdice" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="presentation">
+<h2>Presentation<a class="headerlink" href="#presentation" title="Permalink to this headline">¶</a></h2>
+<p><em>xdice</em> is a dice library for Python that provides the main functionality
+for managing dice, scores, and dice notation patterns.</p>
+<p>DiceRollParser has been tested with python 3.3+.
+<em>xdice</em> is under GNU License</p>
+<p>To install:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">xdice</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-can-it-do">
+<h2>What can it do?<a class="headerlink" href="#what-can-it-do" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Parse most of common dice notations: ‘1d6+1’, ‘d20’, ‘3d%’, ‘1d20//2 - 2*(6d6+2)’, ‘max(1d4+1,1d6)’, ‘3D6L2’, ‘R3(1d6+1)’…etc.</li>
+<li>Manipulate Dice, Pattern, and Score as objects.</li>
+<li>Roll trough command-line or API</li>
+<li>Understand any mathematical expression</li>
+</ul>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dice</span>
+
+<span class="n">score</span> <span class="o">=</span> <span class="n">dice</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="s2">&quot;2d6+18&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="mi">28</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">score</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="mi">56</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">score</span><span class="o">.</span><span class="n">format</span><span class="p">())</span>
+<span class="o">&gt;&gt;</span> <span class="s1">&#39;[5,6]+18&#39;</span>
+
+<span class="n">score</span> <span class="o">=</span> <span class="n">dice</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="s2">&quot;6D%L2&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">ps</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="o">&gt;&gt;</span> <span class="mi">315</span>      <span class="s1">&#39;6D%L2(scores:[80, 70, 76, 89], dropped:[2, 49])&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">xdice</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#presentation">Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-can-it-do">What can it do?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to the documentation for xdice</a></li>
+      <li>Next: <a href="dice_notation.html" title="next chapter">Dice Notation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Olivier Massot.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

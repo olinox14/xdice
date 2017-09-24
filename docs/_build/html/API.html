@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; xdice 1.0.0 documentation</title>
+    <title>API &#8212; xdice 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command-Line" href="cli.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,78 +39,162 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p># API</p>
-<p>#### xdice.compile(pattern_string)</p>
-<p>&gt; <em>Similar to `xdice.Pattern(pattern_string).compile()`</em></p>
-<p>&gt; Returns a compiled Pattern object.</p>
-<p>&gt; Pattern object can then be rolled to obtain a PatternScore object.</p>
-<p>#### xdice.roll(pattern_string)</p>
-<p>&gt; <em>Similar to `xdice.Pattern(pattern_string).roll()`</em></p>
-<p>#### xdice.rolldice(faces, amount=1)</p>
-<p>&gt; <em>Similar to `xdice.Dice(faces, amount).roll()`</em></p>
-<p>## Dice object</p>
-<p>&gt; Set of dice.</p>
-<p>#### Dice.__init__(sides, amount=1)</p>
-<p>&gt; Instantiate a set of dice.</p>
-<p>#### dice.roll()</p>
-<p>&gt; Role the dice and return a Score object</p>
-<p>####*[classmethod]* Dice.parse(cls, pattern)</p>
-<p>&gt; Parse a pattern of the form ‘AdX’, where A and X are positive integers.
-&gt; Returns the corresponding Dice object.</p>
-<p>## Score object</p>
-<p>&gt; Score is a subclass of integer, you can then manipulate it as you would do with an integer.</p>
-<dl class="docutils">
-<dt>&gt; It also provides an access to the detailed score with the property ‘detail’.</dt>
-<dd>‘detail’ is the list of the scores obtained by each dice.</dd>
-</dl>
-<p>&gt; Score class can also be used as an iterable, to walk trough the individual scores.</p>
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>Import the <em>xdice</em> library with <cite>import dice</cite></p>
+<div class="section" id="the-dice-module">
+<h2>The dice module<a class="headerlink" href="#the-dice-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dice-compile-pattern-string">
+<h3>dice.compile(pattern_string)<a class="headerlink" href="#dice-compile-pattern-string" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><dl class="docutils">
-<dt>eg:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Score</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="go">6</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="go">7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="go">[1,2,3]</span>
+<div>Similar to <cite>xdice.Pattern(pattern_string).compile()</cite></div></blockquote>
+</div>
+<div class="section" id="dice-roll-pattern-string">
+<h3>dice.roll(pattern_string)<a class="headerlink" href="#dice-roll-pattern-string" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Similar to <cite>xdice.Pattern(pattern_string).roll()</cite></div></blockquote>
+</div>
+<div class="section" id="dice-rolldice-faces-amount-1-drop-lowest-0-drop-highest-0">
+<h3>dice.rolldice(faces, amount=1, drop_lowest=0, drop_highest=0)<a class="headerlink" href="#dice-rolldice-faces-amount-1-drop-lowest-0-drop-highest-0" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Similar to <cite>xdice.Dice(faces, amount, drop_lowest, drop_highest).roll()</cite></div></blockquote>
+</div>
+</div>
+<div class="section" id="dice-class">
+<h2>Dice class<a class="headerlink" href="#dice-class" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Set of dice.</div></blockquote>
+<div class="section" id="dice-init-sides-amount-1-drop-lowest-0-drop-highest-0">
+<h3>Dice.__init__ (sides, amount=1, drop_lowest=0, drop_highest=0)<a class="headerlink" href="#dice-init-sides-amount-1-drop-lowest-0-drop-highest-0" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Instantiate a set of dice.</div></blockquote>
+</div>
+<div class="section" id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><cite>dice.sides</cite>: number of sides of the dice</li>
+<li><cite>dice.amount</cite>: amount of dice to roll</li>
+<li><cite>dice.drop_lowest</cite>: amount of lowest scores to drop</li>
+<li><cite>dice.drop_highest</cite>: amount of highest scores to drop</li>
+<li><cite>dice.name</cite> : Descriptive name of the Dice object</li>
+</ul>
+</div>
+<div class="section" id="dice-roll">
+<h3>dice.roll()<a class="headerlink" href="#dice-roll" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Role the dice and return a Score object</div></blockquote>
+</div>
+<div class="section" id="classmethod-dice-parse-cls-pattern">
+<h3><em>[classmethod]</em> Dice.parse(cls, pattern)<a class="headerlink" href="#classmethod-dice-parse-cls-pattern" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Parse a pattern of the form ‘AdX’, where A and X are positive
+integers, then return the corresponding Dice object. Use
+‘AdX[Ln][Hn]’ to drop the n lowest and/or highest dice when rolled.</div></blockquote>
+</div>
+</div>
+<div class="section" id="score-class">
+<h2>Score class<a class="headerlink" href="#score-class" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Score is a subclass of integer, you can then manipulate it as you
+would do with an integer.</p>
+<div class="line-block">
+<div class="line">It also provides an access to the detailed score with the property
+‘detail’.</div>
+<div class="line">‘detail’ is the list of the scores obtained by each dice.</div>
+</div>
+<p>Score class can also be used as an iterable, to walk trough the
+individual scores.</p>
+</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">eg</span><span class="p">:</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Score</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="mi">6</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="mi">7</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
-</dd>
-</dl>
+<div class="section" id="score-new-iterable-dropped-name">
+<h3>Score.__new__(iterable, dropped=[], name=’‘)<a class="headerlink" href="#score-new-iterable-dropped-name" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><cite>iterable</cite> should only contain integers</p>
+<p>Score value will be the sum of the list’s values.</p>
 </div></blockquote>
-<p>#### Score.__new__(iterable)</p>
-<p>&gt;*`iterable` should only contain integers*</p>
-<p>&gt; Score value will be the sum of the list’s values.</p>
-<p>## Pattern object</p>
-<p>&gt; Dice notation pattern.</p>
-<p>#### Pattern.__init__(instr)</p>
-<p>&gt; Instantiate a Pattern object.</p>
-<p>#### pattern.compile()</p>
-<p>&gt; Parse the pattern. Two properties are updated at this time:</p>
+</div>
+<div class="section" id="id1">
+<h3>Properties<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><em>pattern.format_string</em></li>
+<li><cite>score.detail</cite>: similar to list(score), return the list of the individual results</li>
+<li><cite>score.name</cite>: descriptive name of the dice rolled</li>
+<li><cite>score.dropped</cite>: list of the dropped results</li>
 </ul>
-<p>&gt; The ready-to-be-formatted string built from the <cite>instr</cite> argument.</p>
-<p>&gt; <em>Eg: ‘1d6+4+1d4’ =&gt; ‘{0}+4-{1}’</em></p>
-<ul class="simple">
-<li><em>pattern.dices</em></li>
+</div>
+<div class="section" id="score-format-verbose-false">
+<h3>score.format(verbose=False)<a class="headerlink" href="#score-format-verbose-false" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>A formatted string describing the detailed result.</div></blockquote>
+</div>
+</div>
+<div class="section" id="pattern-class">
+<h2>Pattern class<a class="headerlink" href="#pattern-class" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Dice notation pattern.</div></blockquote>
+<div class="section" id="pattern-init-instr">
+<h3>Pattern.__init__ (instr)<a class="headerlink" href="#pattern-init-instr" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Instantiate a Pattern object.</div></blockquote>
+</div>
+<div class="section" id="pattern-compile">
+<h3>pattern.compile()<a class="headerlink" href="#pattern-compile" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Parse the pattern. Two properties are updated at this time:</div></blockquote>
+<ul>
+<li><p class="first"><em>pattern.format_string</em></p>
+<blockquote>
+<div><p>The ready-to-be-formatted string built from the <code class="docutils literal"><span class="pre">instr</span></code> argument.</p>
+<p><em>Eg: ‘1d6+4+1d4’ =&gt; ‘{0}+4-{1}’</em></p>
+</div></blockquote>
+</li>
+<li><p class="first"><em>pattern.dices</em></p>
+<blockquote>
+<div><p>The list of parsed dice.</p>
+<p><em>Eg: ‘1d6+4+1d4’ =&gt; [(Dice; sides=6;amount=1), (Dice;
+sides=4;amount=1)]</em></p>
+</div></blockquote>
+</li>
 </ul>
-<p>&gt; The list of parsed dice.</p>
-<p>&gt; <em>Eg: ‘1d6+4+1d4’ =&gt; [(Dice; sides=6;amount=1), (Dice; sides=4;amount=1)]</em></p>
-<p>#### pattern.roll()</p>
-<p>&gt; Compile the pattern if it has not been yet, then roll the dice.</p>
-<p>&gt; Return a PatternScore object.</p>
-<p>## PatternScore object</p>
-<p>&gt; PatternScore is a subclass of <strong>integer</strong>, you can then manipulate it as you would do with an integer.</p>
-<p>&gt; Moreover, you can get the list of the scores with the score(i) or scores() methods, and retrieve a formatted result with the format() method.</p>
-<p>#### pattern_score.scores()</p>
-<p>&gt; Returns the list of Score objects extracted from the pattern and rolled.</p>
-<p>#### pattern_score.score(i)</p>
-<p>&gt; Returns the Score object at index i.</p>
-<p>#### pattern_score.format()</p>
-<p>&gt; Return a formatted string detailing the result of the roll.</p>
-<p>&gt; <em>Eg: ‘3d6+4’ =&gt; ‘[1,5,6]+4’</em></p>
+</div>
+<div class="section" id="pattern-roll">
+<h3>pattern.roll()<a class="headerlink" href="#pattern-roll" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Compile the pattern if it has not been yet, then roll the dice.</p>
+<p>Return a PatternScore object.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="patternscore-class">
+<h2>PatternScore class<a class="headerlink" href="#patternscore-class" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>PatternScore is a subclass of <strong>integer</strong>, you can then manipulate
+it as you would do with an integer.</p>
+<p>Moreover, you can get the list of the scores with the score(i) or
+scores() methods, and retrieve a formatted result with the format()
+method.</p>
+</div></blockquote>
+<div class="section" id="pattern-score-scores">
+<h3>pattern_score.scores()<a class="headerlink" href="#pattern-score-scores" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Returns the list of Score objects extracted from the pattern and
+rolled.</div></blockquote>
+</div>
+<div class="section" id="pattern-score-format-verbose-false">
+<h3>pattern_score.format(verbose=False)<a class="headerlink" href="#pattern-score-format-verbose-false" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>A formatted string describing the detailed result.</div></blockquote>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -127,11 +212,25 @@
 
 
 <h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-dice-module">The dice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dice-class">Dice class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#score-class">Score class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pattern-class">Pattern class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#patternscore-class">PatternScore class</a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cli.html" title="previous chapter">Command-Line</a></li>
   </ul></li>
 </ul>
 </div>
@@ -157,7 +256,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/API.md.txt"
+      <a href="_sources/api.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

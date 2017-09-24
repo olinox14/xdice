@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; xdice 1.0.0 documentation</title>
+    <title>Dice Notation &#8212; xdice 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,6 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command-Line" href="cli.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,53 +40,95 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p># Dice Notation</p>
+  <div class="section" id="dice-notation">
+<h1>Dice Notation<a class="headerlink" href="#dice-notation" title="Permalink to this headline">¶</a></h1>
 <p><em>Dice notation</em> is nearly fully understood by pydice.</p>
-<p>## Dice</p>
-<p>&gt; Following patterns can be passed to the Dice.parse() class method, and will then return the corresponding Dice object.</p>
-<p><strong>[See Wikipedia for a complete definition.](https://en.wikipedia.org/wiki/Dice_notation)</strong></p>
-<p>#### Bases</p>
-<p>Die rolls are given in the form AdX. A (amount) and X (sides) are variables, separated by the letter “d”, which stands for die or dice.</p>
-<ul class="simple">
-<li>A is the number of dice to be rolled (1 if omitted).</li>
-<li>X is the number of faces of each die.</li>
-</ul>
-<p>If the final number is omitted, it is assumed to be a twenty. (This can be changed trough the class property Dice.DEFAULT_SIDES)</p>
-<p>&gt; For example, if a game would call for a roll of d4 or 1d4 this would mean, “roll one 4-sided die.”
-&gt; <cite>3d6</cite> would mean, “roll three six-sided dice”</p>
-<p>Note: the <cite>D%</cite> notation is read as <cite>D100</cite></p>
-<p>#### Selective results</p>
-<p>This pattern can be followed by <cite>Ln</cite> and/or <cite>Hn</cite> expressions.
-‘L’ and ‘H’ respectively stand for lowest and highest.</p>
-<p>In this case, the lowest/highest n scores will be discard when the dice will be rolled.</p>
-<p>&gt; <cite>3D6L1</cite> will roll three 6-sided dice, and drop the lowest, while <cite>3D6H1</cite> will roll three 6-sided dice, and drop the highest.</p>
-<p>If no number follow the ‘L’ or ‘H’, it is assumed to be a 1.
-‘L’ and ‘H’ can be combined inside a single pattern.</p>
-<p>## Patterns</p>
-<p>&gt; Following patterns can be passed to the Pattern.parse() class method.</p>
-<p>#### Bases</p>
-<p><cite>AdX</cite> notations can be integrated in complex expressions.</p>
-<p>Any mathematical expression is allowed:</p>
+<div class="section" id="case-sensitivity">
+<h2>Case sensitivity<a class="headerlink" href="#case-sensitivity" title="Permalink to this headline">¶</a></h2>
+<p><em>xdice</em> is case insensitive.</p>
+<div class="section" id="dice">
+<h3>Dice<a class="headerlink" href="#dice" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>&gt;&gt; 1d10+1d5+1
-&gt;&gt; 1d20-6
-&gt;&gt; 1d6*2
-&gt;&gt; 2d20//4
-&gt;&gt; 1d6*(1d4**2)</div></blockquote>
-<p>#### Builtin python functions</p>
-<p>Currently, the following python functions are allowed: <cite>abs</cite>, <cite>max</cite>, <cite>min</cite></p>
-<p>#### Repeat pattern</p>
-<p>The <cite>Rn(AdX)</cite> notation can be used to repat n times the <cite>AdX</cite> command.</p>
-<p>For example, the pattern <cite>R3(2d6+2)</cite> will roll <cite>2d6+2</cite> three times.</p>
-<p>## Examples</p>
-<p><cite>1d6</cite>                                   &gt; Roll a 6-sided die
-<cite>1d6+3</cite>                                 &gt; Roll a 6-sided die, then add 3
-<cite>2*(1d6+3)</cite>                     &gt; Roll a 6-sided die, add 3, then multiply by 2
-<cite>3d6L2</cite>                         &gt; Roll three 6-sided dice, and drop the two lowest.
-<cite>R2(1d6+3)</cite>                     &gt; Similar to <cite>1d6+3+1d6+3</cite>
-<cite>1d%</cite>                                   &gt; Similar to <cite>1d100</cite>
-<cite>d6</cite>                                    &gt; Similar to <cite>1d6</cite>
-<cite>min(1d6+10,3d6)</cite>       &gt; Keep the minimal score between <cite>1d6+10</cite> and <cite>3d6</cite></p>
+<div>Patterns describes here can be passed to the Dice.parse() class
+method, and will then return the corresponding Dice object.</div></blockquote>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Dice_notation">See Wikipedia for a complete definition.</a></p>
+</div>
+</div>
+<div class="section" id="bases">
+<h2>Bases<a class="headerlink" href="#bases" title="Permalink to this headline">¶</a></h2>
+<p>Die rolls are given in the form AdX. A (amount) and X (sides) are
+variables, separated by the letter “d”, which stands for die or dice.</p>
+<ul>
+<li><p class="first">A is the number of dice to be rolled (1 if omitted).</p>
+</li>
+<li><p class="first">X is the number of faces of each die.</p>
+<blockquote>
+<div><p>For example, if a game would call for a roll of d4 or 1d4 this would
+mean, “roll one 4-sided die.” 3d6 would mean, “roll three
+six-sided dice”</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="default-values">
+<h2>Default values<a class="headerlink" href="#default-values" title="Permalink to this headline">¶</a></h2>
+<p>If the A value is omitted, it is assumed to be a 1.</p>
+<p>If the X value is omitted, it is assumed to be a 20.
+This behavior can be modified trough the class property Dice.DEFAULT_SIDES.</p>
+</div>
+<div class="section" id="d-notation">
+<h2>D% Notation<a class="headerlink" href="#d-notation" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">D%</span></code> notation is allowed, and read as <code class="docutils literal"><span class="pre">D100</span></code>.</p>
+</div>
+<div class="section" id="selective-results">
+<h2>Selective results<a class="headerlink" href="#selective-results" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">AdX</span></code> pattern can be followed by <code class="docutils literal"><span class="pre">Ln</span></code> and/or <code class="docutils literal"><span class="pre">Hn</span></code> (‘L’ and ‘H’
+respectively stand for lowest and highest).</p>
+<p>In this case, the lowest/highest n scores will be discard when the dice
+will be rolled.</p>
+<p>&gt; Eg: <code class="docutils literal"><span class="pre">3D6L1</span></code> will roll three 6-sided dice, and drop the lowest, while <code class="docutils literal"><span class="pre">3D6H1</span></code> will roll three 6-sided dice, and drop the highest.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li>If no number follow the ‘L’ or ‘H’, it is assumed to be a 1.</li>
+<li>‘L’ and ‘H’ can be combined inside a single pattern, but ‘L’ must precede ‘H’: <code class="docutils literal"><span class="pre">6D6L1H2</span></code></li>
+</ul>
+<div class="section" id="patterns">
+<h3>Patterns<a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Patterns describes here can be passed to the Pattern.parse() class
+method.</div></blockquote>
+<p><code class="docutils literal"><span class="pre">AdX</span></code> notations can be used in more complex expressions.</p>
+<p>Any mathematical expression is allowed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="n">d10</span><span class="o">+</span><span class="mi">1</span><span class="n">d5</span><span class="o">+</span><span class="mi">1</span>
+<span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="n">d20</span><span class="o">-</span><span class="mi">6</span>
+<span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="n">d6</span><span class="o">*</span><span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="n">d20</span><span class="o">//</span><span class="mi">4</span>
+<span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="n">d6</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="n">d4</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Following builtin python functions are also allowed: <code class="docutils literal"><span class="pre">abs</span></code>, <code class="docutils literal"><span class="pre">max</span></code>,
+<code class="docutils literal"><span class="pre">min</span></code>. That mean you can parse patterns like <code class="docutils literal"><span class="pre">max(1d6+1,</span> <span class="pre">2d4)</span></code>.</p>
+</div>
+</div>
+<div class="section" id="repeat">
+<h2>Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">Rn(AdX)</span></code> notation can be used to roll n times the <code class="docutils literal"><span class="pre">AdX</span></code> command.</p>
+<p>For example, the pattern <code class="docutils literal"><span class="pre">R3(2d6+2)</span></code> will roll <code class="docutils literal"><span class="pre">2d6+2</span></code> three times: <code class="docutils literal"><span class="pre">(2d6+2)+(2d6+2)+(2d6+2)</span></code></p>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">1d6</span></code>                              &gt; Roll a 6-sided die</li>
+<li><code class="docutils literal"><span class="pre">1d6+3</span></code>                    &gt; Roll a 6-sided die, then add 3</li>
+<li><code class="docutils literal"><span class="pre">2*(1d6+3)</span></code>                &gt; Roll a 6-sided die, add 3, then multiply by 2</li>
+<li><code class="docutils literal"><span class="pre">3d6L2</span></code>                    &gt; Roll three 6-sided dice, and drop the two lowest.</li>
+<li><code class="docutils literal"><span class="pre">R2(1d6+3)</span></code>                &gt; Similar to <code class="docutils literal"><span class="pre">1d6+3+1d6+3</span></code></li>
+<li><code class="docutils literal"><span class="pre">1d%</span></code>                              &gt; Similar to <code class="docutils literal"><span class="pre">1d100</span></code></li>
+<li><code class="docutils literal"><span class="pre">d6</span></code>                               &gt; Similar to <code class="docutils literal"><span class="pre">1d6</span></code></li>
+<li><code class="docutils literal"><span class="pre">min(1d6+10,3d6)</span></code>  &gt; Keep the minimal score between <code class="docutils literal"><span class="pre">1d6+10</span></code> and <code class="docutils literal"><span class="pre">3d6</span></code></li>
+</ul>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -102,11 +146,27 @@
 
 
 <h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dice Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#case-sensitivity">Case sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bases">Bases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-values">Default values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#d-notation">D% Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selective-results">Selective results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#repeat">Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="introduction.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="cli.html" title="next chapter">Command-Line</a></li>
   </ul></li>
 </ul>
 </div>
@@ -132,7 +192,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/dice_notation.md.txt"
+      <a href="_sources/dice_notation.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; xdice 1.0.0 documentation</title>
+    <title>Welcome to the documentation for xdice &#8212; xdice 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="introduction.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,41 +39,37 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p># XDice</p>
-<p><em>xdice</em> is a lightweight python library for managing dice, scores, and dice-notation patterns.</p>
-<p>It allows to easily interpret literal expressions as rolls of dice (‘1d6’, ‘3d4+3’, ‘12d6+1d4’…etc.), then manipulate the results.</p>
-<p>### Python Versions</p>
-<p>DiceRollParser has been tested with python 3.3+</p>
-<p>### Examples</p>
-<blockquote>
-<div><p>import dice</p>
-<p>## Roll simple dices with <strong>rolldice()</strong></p>
-<p>score = rolldice(6, amount=2)</p>
-<p># manipulates score as an integer</p>
-<p>print( score, score * 2, score == 11 )
-&gt;&gt; 11           22              True</p>
-<p># Iterates over the results</p>
-<dl class="docutils">
-<dt>for result in score:</dt>
-<dd>print(result)</dd>
-</dl>
-<p>&gt;&gt; 5
-&gt;&gt; 6</p>
-<p># Parse patterns with <strong>roll()</strong></p>
-<p>ps = roll(“2d6+18”)</p>
-<p>print( ps, ps.format() )
-&gt;&gt; 28           ‘[5,6]+18’</p>
-</div></blockquote>
-<p>### Contribution</p>
-<p>Any opinion / contribution is welcome, please contact us.</p>
-<p>### Installation</p>
-<blockquote>
-<div>pip install xdice</div></blockquote>
-<p>### License</p>
-<p><em>xdice</em> is under GNU License</p>
-<p>### Tags</p>
-<blockquote>
-<div>dice roll d20 game random parser dices role board</div></blockquote>
+  <div class="section" id="welcome-to-the-documentation-for-xdice">
+<h1>Welcome to the documentation for xdice<a class="headerlink" href="#welcome-to-the-documentation-for-xdice" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#presentation">Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-can-it-do">What can it do?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#case-sensitivity">Case sensitivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#bases">Bases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#default-values">Default values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#d-notation">D% Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#selective-results">Selective results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#repeat">Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#the-dice-module">The dice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#dice-class">Dice class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#score-class">Score class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#pattern-class">Pattern class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#patternscore-class">PatternScore class</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 
 
           </div>
@@ -90,11 +87,18 @@
 
 
 <h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="introduction.html" title="next chapter">Introduction</a></li>
   </ul></li>
 </ul>
 </div>
@@ -120,7 +124,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/index.md.txt"
+      <a href="_sources/index.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
