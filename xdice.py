@@ -29,11 +29,11 @@ def roll(pattern_string):
     """
     return Pattern(pattern_string).roll()
 
-def rolldice(faces, amount=1):
+def rolldice(faces, amount=1, drop_lowest=0, drop_highest=0):
     """
     > Similar to xdice.Dice(faces, amount).roll()
     """
-    return Dice(faces, amount).roll()
+    return Dice(faces, amount, drop_lowest, drop_highest).roll()
 
 _ALLOWED = {'abs': abs, 'max': max, 'min': min}
 
