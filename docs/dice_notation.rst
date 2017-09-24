@@ -1,15 +1,12 @@
 Dice Notation
--------------
+=============
 
 *Dice notation* is nearly fully understood by pydice.
-
-Case sensitivity
-^^^^^^^^^^^^^^^^
 
 *xdice* is case insensitive.
 
 Dice
-~~~~
+----
 
     Patterns describes here can be passed to the Dice.parse() class
     method, and will then return the corresponding Dice object.
@@ -60,7 +57,7 @@ Notes:
 
 
 Patterns
-~~~~~~~~
+--------
 
     Patterns describes here can be passed to the Pattern.parse() class
     method.
@@ -91,7 +88,7 @@ For example, the pattern ``R3(2d6+2)`` will roll ``2d6+2`` three times: ``(2d6+2
 
 
 Examples
-~~~~~~~~
+--------
 
 -  ``1d6`` 				> Roll a 6-sided die
 -  ``1d6+3`` 			> Roll a 6-sided die, then add 3
