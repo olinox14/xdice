@@ -1,10 +1,10 @@
-# Dice Notation
+## Dice Notation
 
 *Dice notation* is nearly fully understood by pydice.
 
-## Dice
+### Dice
 
-> Following patterns can be passed to the Dice.parse() class method, and will then return the corresponding Dice object.
+> Patterns describes here can be passed to the Dice.parse() class method, and will then return the corresponding Dice object.
 
 **[See Wikipedia for a complete definition.](https://en.wikipedia.org/wiki/Dice_notation)**
 
@@ -24,22 +24,20 @@ Note: the `D%` notation is read as `D100`
 
 #### Selective results
 
-This pattern can be followed by `Ln` and/or `Hn` expressions.
-'L' and 'H' respectively stand for lowest and highest.
+The `AdX` pattern can be followed by `Ln` and/or `Hn` ('L' and 'H' respectively stand for lowest and highest).
 
 In this case, the lowest/highest n scores will be discard when the dice will be rolled.
 
-> `3D6L1` will roll three 6-sided dice, and drop the lowest, while `3D6H1` will roll three 6-sided dice, and drop the highest.
+*Eg: `3D6L1` will roll three 6-sided dice, and drop the lowest, while `3D6H1` will roll three 6-sided dice, and drop the highest.*
 
-If no number follow the 'L' or 'H', it is assumed to be a 1.
-'L' and 'H' can be combined inside a single pattern.
+Notes:
+* If no number follow the 'L' or 'H', it is assumed to be a 1.
+* 'L' and 'H' can be combined inside a single pattern.
 
 
-## Patterns
+### Patterns
 
-> Following patterns can be passed to the Pattern.parse() class method.
-
-#### Bases
+> Patterns describes here can be passed to the Pattern.parse() class method.
 
 `AdX` notations can be integrated in complex expressions.
 
@@ -55,19 +53,19 @@ Any mathematical expression is allowed:
 
 Currently, the following python functions are allowed: `abs`, `max`, `min`
 
-#### Repeat pattern
+#### Repeat
 
 The `Rn(AdX)` notation can be used to repat n times the `AdX` command.
 
 For example, the pattern `R3(2d6+2)` will roll `2d6+2` three times.
 
-## Examples
+### Examples
 
-`1d6` 					> Roll a 6-sided die
-`1d6+3` 				> Roll a 6-sided die, then add 3
-`2*(1d6+3)`			> Roll a 6-sided die, add 3, then multiply by 2
-`3d6L2`				> Roll three 6-sided dice, and drop the two lowest.
-`R2(1d6+3)`			> Similar to `1d6+3+1d6+3`
-`1d%`					> Similar to `1d100`
-`d6`					> Similar to `1d6`
-`min(1d6+10,3d6)`	> Keep the minimal score between `1d6+10` and `3d6`
+* `1d6` 					> Roll a 6-sided die
+* `1d6+3` 				> Roll a 6-sided die, then add 3
+* `2*(1d6+3)`			> Roll a 6-sided die, add 3, then multiply by 2
+* `3d6L2`				> Roll three 6-sided dice, and drop the two lowest.
+* `R2(1d6+3)`			> Similar to `1d6+3+1d6+3`
+* `1d%`					> Similar to `1d100`
+* `d6`					> Similar to `1d6`
+* `min(1d6+10,3d6)`	> Keep the minimal score between `1d6+10` and `3d6`

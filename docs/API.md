@@ -12,15 +12,15 @@
 
 > *Similar to `xdice.Pattern(pattern_string).roll()`*
 
-#### xdice.rolldice(faces, amount=1)
+#### xdice.rolldice(faces, amount=1, drop_lowest=0, drop_highest=0)
 
-> *Similar to `xdice.Dice(faces, amount).roll()`*
+> *Similar to `xdice.Dice(faces, amount, drop_lowest, drop_highest).roll()`*
 
 ## Dice object
 
 > Set of dice.
 
-#### Dice.__init__(sides, amount=1)
+#### Dice.__init__(sides, amount=1, drop_lowest=0, drop_highest=0)
 
 > Instantiate a set of dice.
 
@@ -30,8 +30,16 @@
 
 ####*[classmethod]* Dice.parse(cls, pattern)
 
-> Parse a pattern of the form 'AdX', where A and X are positive integers.
-> Returns the corresponding Dice object.
+> Parse a pattern of the form 'AdX', where A and X are positive integers, then return the corresponding Dice object.
+> Use 'AdX[Ln][Hn]' to drop the n lowest and/or highest dice when rolled.
+
+### Properties
+
+* `dice.sides`: number of sides of the dice
+* `dice.amount`: amount of dice to roll
+* `dice.drop_lowest`: amount of lowest scores to drop
+* `dice.drop_highest`: amount of highest scores to drop
+* `dice.name` : Decsriptive name of the Dice object
 
 ## Score object
 
@@ -51,11 +59,22 @@
         >>> list(s)
         [1,2,3]
 
-#### Score.__new__(iterable)
+#### Score.__new__(iterable, dropped=[], name="")
 
 >*`iterable` should only contain integers*
 
 > Score value will be the sum of the list's values.
+
+#### score.format(verbose=False)
+
+> A formatted string describing the detailed result.
+
+
+### Properties
+
+* score.detail: similar to list(score), return the list of the individual results
+* score.name: descriptive name of the dice rolled
+* score.dropped: list of the dropped results
 
 
 ## Pattern object
