@@ -4,7 +4,7 @@ API
 xdice.compile(pattern\_string)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    *Similar to ``xdice.Pattern(pattern_string).compile()``*
+    Similar to `xdice.Pattern(pattern_string).compile()`
 
     Returns a compiled Pattern object.
 
@@ -13,20 +13,19 @@ xdice.compile(pattern\_string)
 xdice.roll(pattern\_string)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    *Similar to ``xdice.Pattern(pattern_string).roll()``*
+    Similar to `xdice.Pattern(pattern_string).roll()`
 
 xdice.rolldice(faces, amount=1, drop\_lowest=0, drop\_highest=0)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    *Similar to
-    ``xdice.Dice(faces, amount, drop_lowest, drop_highest).roll()``*
+    Similar to `xdice.Dice(faces, amount, drop_lowest, drop_highest).roll()`
 
 Dice object
 -----------
 
     Set of dice.
 
-Dice.\ **init**\ (sides, amount=1, drop\_lowest=0, drop\_highest=0)
+Dice.__init__ (sides, amount=1, drop\_lowest=0, drop\_highest=0)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     Instantiate a set of dice.
@@ -43,14 +42,15 @@ dice.roll()
     integers, then return the corresponding Dice object. Use
     ‘AdX[Ln][Hn]’ to drop the n lowest and/or highest dice when rolled.
 
-Properties
-~~~~~~~~~~
 
--  ``dice.sides``: number of sides of the dice
--  ``dice.amount``: amount of dice to roll
--  ``dice.drop_lowest``: amount of lowest scores to drop
--  ``dice.drop_highest``: amount of highest scores to drop
--  ``dice.name`` : Decsriptive name of the Dice object
+Properties
+^^^^^^^^^^
+
+-  `dice.sides`: number of sides of the dice
+-  `dice.amount`: amount of dice to roll
+-  `dice.drop_lowest`: amount of lowest scores to drop
+-  `dice.drop_highest`: amount of highest scores to drop
+-  `dice.name` : Descriptive name of the Dice object
 
 Score object
 ------------
@@ -76,10 +76,10 @@ Score object
         >>> list(s)
         [1,2,3]
 
-Score.\ **new**\ (iterable, dropped=\ ``_, name=“”)
+Score.__new__(iterable, dropped=[], name='')
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    *``iterable`` should only contain integers*
+    `iterable` should only contain integers
 
     Score value will be the sum of the list’s values.
 
@@ -89,7 +89,7 @@ score.format(verbose=False)
     A formatted string describing the detailed result.
 
 Properties
-~~~~~~~~~~
+^^^^^^^^^^
 
 -  score.detail: similar to list(score), return the list of the
    individual results
@@ -101,7 +101,7 @@ Pattern object
 
     Dice notation pattern.
 
-Pattern.\ **init**\ (instr)
+Pattern.__init__ (instr)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     Instantiate a Pattern object.
@@ -146,5 +146,3 @@ pattern\_score.scores()
 
     Returns the list of Score objects extracted from the pattern and
     rolled.
-
-.. _: #section

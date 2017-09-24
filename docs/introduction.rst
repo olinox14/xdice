@@ -1,19 +1,30 @@
-XDice
-=====
+Introduction
+============
+
 
 Presentation
 ------------
 
-*xdice* is a lightweight python library for managing dice, scores, and
-dice-notation patterns.
-
-It allows to easily interpret literal expressions as rolls of dice
-(‘1d6’, ‘3d4+3’, ‘12d6+1d4’…etc.), then manipulate the results.
-
-Python Versions
-~~~~~~~~~~~~~~~
+*xdice* is a dice library for Python that provides the main functionality 
+for managing dice, scores, and dice notation patterns.
 
 DiceRollParser has been tested with python 3.3+
+*xdice* is under GNU License
+
+To install:
+
+::
+
+    pip install xdice
+
+What can it do?
+---------------
+
+* Parse most of common dice notations: '1d6+1', 'd20', '3d%', '1d20//2 - 2*(6d6+2)', 'max(1d4+1,1d6)', '3D6L2', 'R3(1d6+1)'...etc.
+* Manipulate Dice, Pattern, and Score as objects.
+* Roll trough command-line or API
+* Understand any mathematical expression
+
 
 Examples
 ~~~~~~~~
@@ -22,62 +33,16 @@ Examples
 
     import dice
 
-    # Roll dices with dice.rolldice()
-
-    score = dice.rolldice(6, amount=2)
-
-    # manipulate 'score' as an integer
+    score = dice.roll("2d6+18")
 
     print(score)
-    >> 11
-    print(score * 2)
-    >> 22
-    print(score == 11)
-    >> True
-
-    # Or iterate over the results
-
-    for result in score:
-        print(result)
-    >> 5
-    >> 6
-
-    # Parse patterns with dice.roll()
-
-    ps = dice.roll("2d6+18")
-
-    print(ps)
     >> 28
+    print(score*2)
+    >> 56
     print(ps.format())
     >> '[5,6]+18'
 
-    ps = dice.roll("6D%L2")
-
-    print(ps)
-    >> 315
-    print(ps.format(verbose=True))
-    >> '6D%L2(scores:[80, 70, 76, 89], dropped:[2, 49])'
-
-Contribution
-~~~~~~~~~~~~
-
-Any opinion / contribution is welcome, please contact us.
-
-Installation
-~~~~~~~~~~~~
-
-::
-
-    pip install xdice
-
-License
-~~~~~~~
-
-*xdice* is under GNU License
-
-Tags
-~~~~
-
-::
-
-    dice roll d20 game random parser dices role board
+    score = dice.roll("6D%L2")
+    
+    print(ps, ps.format(verbose=True))
+    >> 315	'6D%L2(scores:[80, 70, 76, 89], dropped:[2, 49])'
