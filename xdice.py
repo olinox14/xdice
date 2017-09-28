@@ -10,8 +10,10 @@ import re
 
 __VERSION__ = 1.1
 
-# TODO: (?) Dice pools, 6-sided variations, 10-sided variations,
-# Open-ended variations (https://en.wikipedia.org/wiki/Dice_notation)
+# TODO: add an S notation for 'sort' (?)
+# TODO: add an aDx! notation for 'explode' (?)
+# TODO: add a Rn notation for 'reroll' (?)
+# TODO: add an aDPx notation for 'dice pools' (?)
 
 def compile(pattern_string):  # @ReservedAssignment
     """
@@ -72,7 +74,7 @@ class Dice():
     Use roll() to get a Score() object.
     """
     DEFAULT_SIDES = 20
-    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?"
+    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)"
     DICE_RE = re.compile(DICE_RE_STR)
 
     def __init__(self, sides, amount=1, drop_lowest=0, drop_highest=0):
@@ -340,3 +342,33 @@ class PatternScore(int):
     def scores(self):
         """ Returns the list of Score objects extracted from the pattern and rolled. """
         return self._scores
+
+class DiceAlter():
+    """ Alter a Dice behaviour """
+    _RXstr = r""
+    def __init__(self, dice):
+        self._dice = dice
+
+class SelectiveDice(DiceAlter):
+    pass
+
+class LowestDice(SelectiveDice):
+    _RXstr = r"l(\d*)"
+
+class HighestDice(SelectiveDice):
+    _RXstr = r"h(\d*)"
+
+class ExplodingDice(DiceAlter):
+    _RXstr = r"[x!]"
+
+class RecursiveExplodingDice(ExplodingDice):
+    _RXstr = r"!!"
+
+class RerolledDice(DiceAlter):
+    pass
+
+class RerolledLowestDice(DiceAlter):
+    pass
+
+class RerolledHighestDice(DiceAlter):
+    pass
