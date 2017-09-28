@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: xdice
-Version: 1.1.3
+Version: 1.1.4
 Summary: The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.
 Home-page: https://github.com/cro-ki/xdice
 Author: Olivier Massot
