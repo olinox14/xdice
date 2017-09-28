@@ -55,6 +55,16 @@ Notes:
 - If no number follow the ‘L’ or ‘H’, it is assumed to be a 1.
 - ‘L’ and ‘H’ can be combined inside a single pattern, but 'L' must precede 'H': ``6D6L1H2``
 
+Exploding dice
+^^^^^^^^^^^^^^
+
+Append an ``X`` or a ``!`` to a pattern to make the dice 'explode'.
+'Explode' means each maximal score will trigger a new roll.
+The resulting score will be add to the results.
+
+For example, if ``3d6!`` give ``[6,3,2]``, one more die will be rolled (because 6 is the max value)
+The final result could be ``[6,3,2,4]``.
+
 
 Patterns
 --------

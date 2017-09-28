@@ -15,7 +15,7 @@ with open("README.rst") as f:
 setup(
     name='xdice',
 
-    version='1.1.3',
+    version='1.1.4',
 
     description='The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.',
     long_description=long_description,

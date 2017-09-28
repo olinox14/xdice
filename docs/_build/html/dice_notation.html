@@ -43,19 +43,15 @@
   <div class="section" id="dice-notation">
 <h1>Dice Notation<a class="headerlink" href="#dice-notation" title="Permalink to this headline">¶</a></h1>
 <p><em>Dice notation</em> is nearly fully understood by pydice.</p>
-<div class="section" id="case-sensitivity">
-<h2>Case sensitivity<a class="headerlink" href="#case-sensitivity" title="Permalink to this headline">¶</a></h2>
 <p><em>xdice</em> is case insensitive.</p>
 <div class="section" id="dice">
-<h3>Dice<a class="headerlink" href="#dice" title="Permalink to this headline">¶</a></h3>
+<h2>Dice<a class="headerlink" href="#dice" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div>Patterns describes here can be passed to the Dice.parse() class
 method, and will then return the corresponding Dice object.</div></blockquote>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Dice_notation">See Wikipedia for a complete definition.</a></p>
-</div>
-</div>
 <div class="section" id="bases">
-<h2>Bases<a class="headerlink" href="#bases" title="Permalink to this headline">¶</a></h2>
+<h3>Bases<a class="headerlink" href="#bases" title="Permalink to this headline">¶</a></h3>
 <p>Die rolls are given in the form AdX. A (amount) and X (sides) are
 variables, separated by the letter “d”, which stands for die or dice.</p>
 <ul>
@@ -71,17 +67,17 @@ six-sided dice”</p>
 </ul>
 </div>
 <div class="section" id="default-values">
-<h2>Default values<a class="headerlink" href="#default-values" title="Permalink to this headline">¶</a></h2>
+<h3>Default values<a class="headerlink" href="#default-values" title="Permalink to this headline">¶</a></h3>
 <p>If the A value is omitted, it is assumed to be a 1.</p>
 <p>If the X value is omitted, it is assumed to be a 20.
 This behavior can be modified trough the class property Dice.DEFAULT_SIDES.</p>
 </div>
 <div class="section" id="d-notation">
-<h2>D% Notation<a class="headerlink" href="#d-notation" title="Permalink to this headline">¶</a></h2>
+<h3>D% Notation<a class="headerlink" href="#d-notation" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">D%</span></code> notation is allowed, and read as <code class="docutils literal"><span class="pre">D100</span></code>.</p>
 </div>
 <div class="section" id="selective-results">
-<h2>Selective results<a class="headerlink" href="#selective-results" title="Permalink to this headline">¶</a></h2>
+<h3>Selective results<a class="headerlink" href="#selective-results" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">AdX</span></code> pattern can be followed by <code class="docutils literal"><span class="pre">Ln</span></code> and/or <code class="docutils literal"><span class="pre">Hn</span></code> (‘L’ and ‘H’
 respectively stand for lowest and highest).</p>
 <p>In this case, the lowest/highest n scores will be discard when the dice
@@ -92,8 +88,18 @@ will be rolled.</p>
 <li>If no number follow the ‘L’ or ‘H’, it is assumed to be a 1.</li>
 <li>‘L’ and ‘H’ can be combined inside a single pattern, but ‘L’ must precede ‘H’: <code class="docutils literal"><span class="pre">6D6L1H2</span></code></li>
 </ul>
+</div>
+<div class="section" id="exploding-dice">
+<h3>Exploding dice<a class="headerlink" href="#exploding-dice" title="Permalink to this headline">¶</a></h3>
+<p>Append an <code class="docutils literal"><span class="pre">X</span></code> or a <code class="docutils literal"><span class="pre">!</span></code> to a pattern to make the dice ‘explode’.
+‘Explode’ means each maximal score will trigger a new roll.
+The resulting score will be add to the results.</p>
+<p>For example, if <code class="docutils literal"><span class="pre">3d6!</span></code> give <code class="docutils literal"><span class="pre">[6,3,2]</span></code>, one more die will be rolled (because 6 is the max value)
+The final result could be <code class="docutils literal"><span class="pre">[6,3,2,4]</span></code>.</p>
+</div>
+</div>
 <div class="section" id="patterns">
-<h3>Patterns<a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h3>
+<h2>Patterns<a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div>Patterns describes here can be passed to the Pattern.parse() class
 method.</div></blockquote>
@@ -108,14 +114,14 @@ method.</div></blockquote>
 </div>
 <p>Following builtin python functions are also allowed: <code class="docutils literal"><span class="pre">abs</span></code>, <code class="docutils literal"><span class="pre">max</span></code>,
 <code class="docutils literal"><span class="pre">min</span></code>. That mean you can parse patterns like <code class="docutils literal"><span class="pre">max(1d6+1,</span> <span class="pre">2d4)</span></code>.</p>
-</div>
-</div>
 <div class="section" id="repeat">
-<h2>Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">¶</a></h2>
+<h3>Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">Rn(AdX)</span></code> notation can be used to roll n times the <code class="docutils literal"><span class="pre">AdX</span></code> command.</p>
 <p>For example, the pattern <code class="docutils literal"><span class="pre">R3(2d6+2)</span></code> will roll <code class="docutils literal"><span class="pre">2d6+2</span></code> three times: <code class="docutils literal"><span class="pre">(2d6+2)+(2d6+2)+(2d6+2)</span></code></p>
+</div>
+</div>
 <div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">1d6</span></code>                              &gt; Roll a 6-sided die</li>
 <li><code class="docutils literal"><span class="pre">1d6+3</span></code>                    &gt; Roll a 6-sided die, then add 3</li>
@@ -126,7 +132,6 @@ method.</div></blockquote>
 <li><code class="docutils literal"><span class="pre">d6</span></code>                               &gt; Similar to <code class="docutils literal"><span class="pre">1d6</span></code></li>
 <li><code class="docutils literal"><span class="pre">min(1d6+10,3d6)</span></code>  &gt; Keep the minimal score between <code class="docutils literal"><span class="pre">1d6+10</span></code> and <code class="docutils literal"><span class="pre">3d6</span></code></li>
 </ul>
-</div>
 </div>
 </div>
 
@@ -149,16 +154,23 @@ method.</div></blockquote>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Dice Notation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#case-sensitivity">Case sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bases">Bases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#default-values">Default values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#d-notation">D% Notation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#selective-results">Selective results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#repeat">Repeat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dice">Dice</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bases">Bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-values">Default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-notation">D% Notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selective-results">Selective results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exploding-dice">Exploding dice</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#patterns">Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#repeat">Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
 <div class="relations">

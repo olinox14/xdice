@@ -55,6 +55,9 @@ class Test(unittest.TestCase):
         xdice.roll("1d%")
         xdice.roll("d%")
         xdice.roll("1+R3(1d6+1)")
+        xdice.roll("3d6!")
+        xdice.roll("3d6x")
+        xdice.roll("3d6h1x")
 
         # test invalid expressions
         self.assertRaises(ValueError, xdice.roll, "")
@@ -75,6 +78,8 @@ class Test(unittest.TestCase):
         d.drop_lowest = 1
         d.drop_highest = 1
         self.assertEqual(d.__repr__(), "<Dice; sides=6; amount=6; drop_lowest=1; drop_highest=1>")
+        d.explode = True
+        self.assertEqual(d.__repr__(), "<Dice; sides=6; amount=6; drop_lowest=1; drop_highest=1; explode>")
 
         self.assertRaises(ValueError, setattr, d, "sides", -1)
         self.assertRaises(ValueError, setattr, d, "sides", "a")
@@ -99,6 +104,10 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, xdice.Dice.parse, "a1d6")
         self.assertEqual(xdice.Dice.parse("6d1h1").roll().name, "6d1h1")
         self.assertEqual(xdice.Dice.parse("6 D 1h1").roll().name, "6d1h1")
+
+        self.assertEqual(xdice.Dice.parse("3d1!").roll(), 6)
+        self.assertEqual(xdice.Dice.parse("3d1x").roll(), 6)
+        self.assertEqual(xdice.Dice.parse("3d1lhx").roll(), 2)
 
     def test_score_object(self):
 

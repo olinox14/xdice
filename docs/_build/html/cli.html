@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="api.html" />
+    <link rel="next" title="API Reference" href="api.html" />
     <link rel="prev" title="Dice Notation" href="dice_notation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -54,20 +54,27 @@
     <span class="o">--</span><span class="n">version</span>        <span class="n">Displays</span> <span class="n">current</span> <span class="n">xdice</span> <span class="n">version</span>
 </pre></div>
 </div>
-<ul>
-<li><p class="first">Basic use</p>
-<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">roll</span> <span class="pre">1d6+1</span></code>
-<code class="docutils literal"><span class="pre">&gt;&gt;</span> <span class="pre">2</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">([1]+1)</span></code></p>
-</li>
-<li><p class="first">Numeric score only (-s)</p>
-<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">roll</span> <span class="pre">-s</span> <span class="pre">1d6+1</span></code>
-<code class="docutils literal"><span class="pre">&gt;&gt;</span> <span class="pre">2</span></code></p>
-</li>
-<li><p class="first">Verbose (-v)</p>
-<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">roll</span> <span class="pre">-v</span> <span class="pre">2*(3D6L1+2D4)+R3(1d4+2)</span></code>
-<code class="docutils literal"><span class="pre">&gt;&gt;</span> <span class="pre">(2*(3d6l1(scores:[5,</span> <span class="pre">6],</span> <span class="pre">dropped:[3])+2d4(scores:[2,</span> <span class="pre">1]))+(1d4(scores:[4])+2+1d4(scores:[1])+2+1d4(scores:[4])+2))</span></code></p>
-</li>
+<ul class="simple">
+<li>Basic use</li>
 </ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">roll</span> <span class="mi">1</span><span class="n">d6</span><span class="o">+</span><span class="mi">1</span>
+<span class="o">&gt;&gt;</span> <span class="mi">2</span>       <span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Numeric score only (-s)</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">roll</span> <span class="o">-</span><span class="n">s</span> <span class="mi">1</span><span class="n">d6</span><span class="o">+</span><span class="mi">1</span>
+<span class="o">&gt;&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Verbose (-v)</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">roll</span> <span class="o">-</span><span class="n">v</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="n">D6L1</span><span class="o">+</span><span class="mi">2</span><span class="n">D4</span><span class="p">)</span><span class="o">+</span><span class="n">R3</span><span class="p">(</span><span class="mi">1</span><span class="n">d4</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="n">d6l1</span><span class="p">(</span><span class="n">scores</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">dropped</span><span class="p">:[</span><span class="mi">3</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="n">d4</span><span class="p">(</span><span class="n">scores</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="n">d4</span><span class="p">(</span><span class="n">scores</span><span class="p">:[</span><span class="mi">4</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="n">d4</span><span class="p">(</span><span class="n">scores</span><span class="p">:[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="n">d4</span><span class="p">(</span><span class="n">scores</span><span class="p">:[</span><span class="mi">4</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -90,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command-Line</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -98,7 +105,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="dice_notation.html" title="previous chapter">Dice Notation</a></li>
-      <li>Next: <a href="api.html" title="next chapter">API</a></li>
+      <li>Next: <a href="api.html" title="next chapter">API Reference</a></li>
   </ul></li>
 </ul>
 </div>

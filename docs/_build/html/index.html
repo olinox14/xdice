@@ -46,25 +46,60 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#presentation">Presentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-can-it-do">What can it do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-can-it-do">What can it do?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#examples">Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#case-sensitivity">Case sensitivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#bases">Bases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#default-values">Default values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#d-notation">D% Notation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#selective-results">Selective results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#repeat">Repeat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#dice">Dice</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#bases">Bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#default-values">Default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#d-notation">D% Notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#selective-results">Selective results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#exploding-dice">Exploding dice</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#patterns">Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dice_notation.html#repeat">Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dice_notation.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#the-dice-module">The dice module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#dice-class">Dice class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#score-class">Score class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#pattern-class">Pattern class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#patternscore-class">PatternScore class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#the-dice-module">The dice module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#dice-compile-pattern-string">dice.compile(pattern_string)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#dice-roll-pattern-string">dice.roll(pattern_string)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#dice-rolldice-faces-amount-1-drop-lowest-0-drop-highest-0">dice.rolldice(faces, amount=1, drop_lowest=0, drop_highest=0)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#dice-class">Dice class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#dice-init-sides-amount-1-drop-lowest-0-drop-highest-0">Dice.__init__ (sides, amount=1, drop_lowest=0, drop_highest=0)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#properties">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#dice-roll">dice.roll()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#classmethod-dice-parse-cls-pattern"><em>[classmethod]</em> Dice.parse(cls, pattern)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#score-class">Score class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#score-new-iterable-dropped-name">Score.__new__(iterable, dropped=[], name=’‘)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#id1">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#score-format-verbose-false">score.format(verbose=False)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#pattern-class">Pattern class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#pattern-init-instr">Pattern.__init__ (instr)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#pattern-compile">pattern.compile()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#pattern-roll">pattern.roll()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#patternscore-class">PatternScore class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#pattern-score-scores">pattern_score.scores()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#pattern-score-format-verbose-false">pattern_score.format(verbose=False)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -91,7 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dice_notation.html">Dice Notation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
 <div class="relations">

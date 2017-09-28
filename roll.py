@@ -3,7 +3,7 @@ Usage:
     roll [options] <expr>
 
 Options:
-    -s               Numeric score only
+    -n               Numeric score only
     -v               Verbose result
 
     -h --help        Displays help message
@@ -28,9 +28,9 @@ if "--version" in args:
     _print_and_exit("xdice {}".format(xdice.__VERSION__))
 
 score_only = False
-if "-s" in args:
+if "-n" in args:
     score_only = True
-    args.remove("-s")
+    args.remove("-n")
 
 verbose = False
 if "-v" in args:

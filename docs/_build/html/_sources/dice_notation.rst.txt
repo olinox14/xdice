@@ -1,15 +1,12 @@
 Dice Notation
--------------
+=============
 
 *Dice notation* is nearly fully understood by pydice.
-
-Case sensitivity
-^^^^^^^^^^^^^^^^
 
 *xdice* is case insensitive.
 
 Dice
-~~~~
+----
 
     Patterns describes here can be passed to the Dice.parse() class
     method, and will then return the corresponding Dice object.
@@ -58,9 +55,19 @@ Notes:
 - If no number follow the ‘L’ or ‘H’, it is assumed to be a 1.
 - ‘L’ and ‘H’ can be combined inside a single pattern, but 'L' must precede 'H': ``6D6L1H2``
 
+Exploding dice
+^^^^^^^^^^^^^^
+
+Append an ``X`` or a ``!`` to a pattern to make the dice 'explode'.
+'Explode' means each maximal score will trigger a new roll.
+The resulting score will be add to the results.
+
+For example, if ``3d6!`` give ``[6,3,2]``, one more die will be rolled (because 6 is the max value)
+The final result could be ``[6,3,2,4]``.
+
 
 Patterns
-~~~~~~~~
+--------
 
     Patterns describes here can be passed to the Pattern.parse() class
     method.
@@ -91,7 +98,7 @@ For example, the pattern ``R3(2d6+2)`` will roll ``2d6+2`` three times: ``(2d6+2
 
 
 Examples
-~~~~~~~~
+--------
 
 -  ``1d6`` 				> Roll a 6-sided die
 -  ``1d6+3`` 			> Roll a 6-sided die, then add 3

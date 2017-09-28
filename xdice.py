@@ -10,9 +10,6 @@ import re
 
 __VERSION__ = 1.1
 
-# TODO: (?) Dice pools, 6-sided variations, 10-sided variations,
-# Open-ended variations (https://en.wikipedia.org/wiki/Dice_notation)
-
 def compile(pattern_string):  # @ReservedAssignment
     """
     > Similar to xdice.Pattern(pattern_string).compile()
@@ -72,15 +69,16 @@ class Dice():
     Use roll() to get a Score() object.
     """
     DEFAULT_SIDES = 20
-    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?"
+    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?([x!])?"
     DICE_RE = re.compile(DICE_RE_STR)
 
-    def __init__(self, sides, amount=1, drop_lowest=0, drop_highest=0):
+    def __init__(self, sides, amount=1, drop_lowest=0, drop_highest=0, explode=False):
         """ Instantiate a Die object """
         self._sides = 1
         self._amount = 0
         self._drop_lowest = 0
         self._drop_highest = 0
+        self._explode = explode
 
         self.sides = sides
         self.amount = amount
@@ -136,18 +134,33 @@ class Dice():
         self._drop_highest = drop_highest
 
     @property
+    def explode(self):
+        """ Should the dice 'explode'
+        'Explode' means each maximal score will trigger a new roll.
+        The resulting score will be add to the results.
+         """
+        return self._explode
+
+    @explode.setter
+    def explode(self, explode):
+        """ Define if the dice should 'explode' """
+        self._explode = explode
+
+    @property
     def name(self):
         """ build the name of the Dice """
-        return "{}d{}{}{}".format(self._amount,
+        return "{}d{}{}{}{}".format(self._amount,
                                   self._sides,
                                   "l{}".format(self._drop_lowest) if self._drop_lowest else "",
-                                  "h{}".format(self._drop_highest) if self._drop_highest else "")
+                                  "h{}".format(self._drop_highest) if self._drop_highest else "",
+                                  "x" if self._explode else "")
 
     def __repr__(self):
         """ Return a string representation of the Dice """
         lowstr = "; drop_lowest={}".format(self.drop_lowest) if self.drop_lowest else ""
         highstr = "; drop_highest={}".format(self.drop_highest) if self.drop_highest else ""
-        return "<Dice; sides={}; amount={}{}{}>".format(self.sides, self.amount, lowstr, highstr)
+        explodestr = "; explode"if self.explode else ""
+        return "<Dice; sides={}; amount={}{}{}{}>".format(self.sides, self.amount, lowstr, highstr, explodestr)
 
     def __eq__(self, d):
         """
@@ -162,6 +175,9 @@ class Dice():
         results = [random.randint(1, self._sides) for _ in range(self._amount)]
         dropped = [_pop_lowest(results) for _ in range(self._drop_lowest)] + \
                     [_pop_highest(results) for _ in range(self._drop_highest)]
+        if self._explode:
+            exploded = [random.randint(1, self._sides) for _ in range(len([score for score in results if score == self._sides]))]
+            results += exploded
         return Score(results, dropped, self.name)
 
     @classmethod
@@ -173,14 +189,15 @@ class Dice():
         if match is None:
             raise ValueError("Invalid Dice pattern ('{}')".format(pattern))
 
-        amount, sides, lowest, highest = match.groups()
+        amount, sides, lowest, highest, explode = match.groups()
 
         amount = amount or 1
         sides = sides or cls.DEFAULT_SIDES
         lowest = (lowest or 1) if lowest is not None else 0
         highest = (highest or 1) if highest is not None else 0
+        explode = bool(explode)
 
-        return Dice(*map(int, [sides, amount, lowest, highest]))
+        return Dice(*map(int, [sides, amount, lowest, highest, explode]))
 
 class Score(int):
     """ Score is a subclass of integer.
