@@ -13,7 +13,7 @@ dice-notation patterns.
 Python Versions
 ^^^^^^^^^^^^^^^
 
-DiceRollParser has been tested with **python 3.3+**
+*xdice* has been tested with **python 3.3+**
 
 Documentation
 ~~~~~~~~~~~~~
@@ -27,11 +27,12 @@ Examples:
 
     import dice
 
-    # Roll simple dices with **rolldice()**
-
+    # Roll simple dices with rolldice()
+	# eg: 2d6
+	
     score = rolldice(6, amount=2)
 
-    # manipulates score as an integer
+    # manipulates the score as an integer
 
     print(score)
     >> 11
@@ -47,7 +48,7 @@ Examples:
     >> 5
     >> 6
 
-    # Parse patterns with **roll()**
+    # Parse patterns with roll() and get a PatternScore object
 
     ps = roll("2d6+18")
 
@@ -56,6 +57,7 @@ Examples:
     print(ps.format())
     >> '[5,6]+18'
 
+	# Use special notations, as selective dice
     ps = roll("6D%L2")
 
     print(ps)
@@ -71,14 +73,15 @@ Run ``python roll.py [options] <expr>``
 
 ::
 
-    Usage:
-        roll [options] <expr>
-
-    Options:
-        -s               Numeric score only
-
-        -h --help        Displays help message
-        --version        Displays current xdice version
+	Usage:
+	    roll [options] <expr>
+	
+	Options:
+	    -n               Numeric score only
+	    -v               Verbose result
+	
+	    -h --help        Displays help message
+	    --version        Displays current xdice version
 
 CONTRIBUTION
 ^^^^^^^^^^^^
