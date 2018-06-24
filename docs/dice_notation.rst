@@ -65,6 +65,11 @@ The resulting score will be add to the results.
 For example, if ``3d6!`` give ``[6,3,2]``, one more die will be rolled (because 6 is the max value)
 The final result could be ``[6,3,2,4]``.
 
+Fudge dice
+^^^^^^^^^^^^^^
+
+Use the ``XdF`` notation to use fudge dice.
+
 
 Patterns
 --------
