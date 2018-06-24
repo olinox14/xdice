@@ -8,7 +8,7 @@
 import random
 import re
 
-__VERSION__ = 1.1
+__VERSION__ = 1.2
 
 def compile(pattern_string):  # @ReservedAssignment
     """
@@ -69,7 +69,7 @@ class Dice():
     Use roll() to get a Score() object.
     """
     DEFAULT_SIDES = 20
-    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?([x!])?"
+    DICE_RE_STR = r"(?P<amount>\d*)d(?P<sides>f|\d*)(?:l(?P<lowest>\d*))?(?:h(?P<highest>\d*))?([x!])?"
     DICE_RE = re.compile(DICE_RE_STR)
 
     def __init__(self, sides, amount=1, drop_lowest=0, drop_highest=0, explode=False):
@@ -93,7 +93,9 @@ class Dice():
     @sides.setter
     def sides(self, sides):
         """ Set the number of faces of the dice """
-        _assert_int_ge_to(sides, 1, "Invalid value for sides ('{}')".format(sides))
+        if sides != "f":
+            _assert_int_ge_to(sides, 1, "Invalid value for sides ('{}')".format(sides))
+            sides = int(sides)
         self._sides = sides
 
     @property
@@ -160,7 +162,8 @@ class Dice():
         lowstr = "; drop_lowest={}".format(self.drop_lowest) if self.drop_lowest else ""
         highstr = "; drop_highest={}".format(self.drop_highest) if self.drop_highest else ""
         explodestr = "; explode"if self.explode else ""
-        return "<Dice; sides={}; amount={}{}{}{}>".format(self.sides, self.amount, lowstr, highstr, explodestr)
+        fudgestr = "; fudge"if self.sides == "f" else ""
+        return "<Dice; sides={}; amount={}{}{}{}{}>".format(self.sides, self.amount, lowstr, highstr, explodestr, fudgestr)
 
     def __eq__(self, d):
         """
@@ -169,14 +172,17 @@ class Dice():
         """
         return self.sides == d.sides and self.amount == d.amount
 
+    def _rollone(self):
+        return random.randint(1, self._sides) if self._sides != "f" else random.randint(-1, 1)
+
     def roll(self):
         """ Role the dice and return a Score object """
         # Sort results
-        results = [random.randint(1, self._sides) for _ in range(self._amount)]
+        results = [self._rollone() for _ in range(self._amount)]
         dropped = [_pop_lowest(results) for _ in range(self._drop_lowest)] + \
                     [_pop_highest(results) for _ in range(self._drop_highest)]
         if self._explode:
-            exploded = [random.randint(1, self._sides) for _ in range(len([score for score in results if score == self._sides]))]
+            exploded = [self._rollone() for _ in range(len([score for score in results if score == self._sides]))]
             results += exploded
         return Score(results, dropped, self.name)
 
@@ -193,11 +199,14 @@ class Dice():
 
         amount = amount or 1
         sides = sides or cls.DEFAULT_SIDES
-        lowest = (lowest or 1) if lowest is not None else 0
-        highest = (highest or 1) if highest is not None else 0
-        explode = bool(explode)
+        if lowest == "":
+            lowest = 1
+        lowest = lowest or 0
+        if highest == "":
+            highest = 1
+        highest = highest or 0
 
-        return Dice(*map(int, [sides, amount, lowest, highest, explode]))
+        return Dice(*[sides, int(amount), int(lowest), int(highest), bool(explode)])
 
 class Score(int):
     """ Score is a subclass of integer.

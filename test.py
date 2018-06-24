@@ -58,6 +58,8 @@ class Test(unittest.TestCase):
         xdice.roll("3d6!")
         xdice.roll("3d6x")
         xdice.roll("3d6h1x")
+        xdice.roll("3df")
+        xdice.roll("3d6+1df")
 
         # test invalid expressions
         self.assertRaises(ValueError, xdice.roll, "")
@@ -67,6 +69,8 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, xdice.roll, "1d6l2")
         self.assertRaises(ValueError, xdice.roll, "1d6h2")
         self.assertRaises(ValueError, xdice.roll, "1d6lh")
+        self.assertRaises(SyntaxError, xdice.roll, "1d6f")
+        self.assertRaises(SyntaxError, xdice.roll, "3f")
         self.assertRaises(SyntaxError, xdice.roll, "1+R3(1d6+1")
 
     def test_dice_object(self):
@@ -108,6 +112,8 @@ class Test(unittest.TestCase):
         self.assertEqual(xdice.Dice.parse("3d1!").roll(), 6)
         self.assertEqual(xdice.Dice.parse("3d1x").roll(), 6)
         self.assertEqual(xdice.Dice.parse("3d1lhx").roll(), 2)
+
+        self.assertIn(xdice.Dice("f", 1).roll(), [-1, 0, 1])
 
     def test_score_object(self):
 

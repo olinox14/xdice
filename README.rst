@@ -5,7 +5,7 @@
 *xdice* is a lightweight python library for managing dice, scores, and
 dice-notation patterns.
 
-- Parse almost any Dice Notation pattern: '1d6+1', 'd20', '3d%', '1d20//2 - 2*(6d6+2)', 'max(1d4+1,1d6)', '3D6L2', 'R3(1d6+1)'...etc.
+- Parse almost any Dice Notation pattern: '1d6+1', 'd20', '3d%', '1d20//2 - 2*(6d6+2)', 'max(1d4+1,1d6)', '3D6L2', 'R3(1d6+1)', '3dF'...etc.
 - API help you to easily manipulate dices, patterns, and scores as objects
 - A command line tool for convenience
 
