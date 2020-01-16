@@ -1,51 +1,54 @@
 #! python3
 """
-Usage:
-    roll [options] <expr>
-
-Options:
-    -n --num_only    Numeric score only (Verbose result default)
-    -h --help        Displays help message
-    --version        Displays current xdice version
+    usage: roll [-h] [-v] [-n] expression [expression ...]
+    
+    Command Line Interface for the xdice library
+    
+    positional arguments:
+      expression      mathematical expression(s) containing dice <n>d<s> patterns
+    
+    optional arguments:
+      -h, --help      show this help message and exit
+      -v, --version   print the xdice version string and exit
+      -n, --num_only  print numeric result only (default is a verbose result)
 """
 import argparse
 import xdice
 
-
 def main():
-    """Main command line entry point."""
     parser = argparse.ArgumentParser(
-        prog="roll", description="Command Line Interface to the xdice library."
+        prog="roll", description="Command Line Interface for the xdice library"
     )
     parser.add_argument(
         "expression",
         nargs="+",
-        help="Mathematical expression containing dice format <n>d<s> objects.",
+        help="mathematical expression(s) containing dice <n>d<s> patterns",
     )
     parser.add_argument(
         "-v",
         "--version",
         action="store_true",
-        help="Prints the xdice library version string and exits.",
+        help="print the xdice version string and exit",
     )
     parser.add_argument(
         "-n",
         "--num_only",
         action="store_true",
-        help="Prints numeric result only.  Otherwise full verbose result is returned.",
+        help="print numeric result only (default is a verbose result)",
     )
     args = parser.parse_args()
 
     if args.version:
-        print("Version {}".format(xdice.__VERSION__))
-    else:
-        if args.expression:
-            expr = "".join(args.expression)
-            ps = xdice.roll(expr)
-            if args.num_only:
-                print(ps)
-            else:
-                print("{}\t({})".format(ps, ps.format(True)))
+        print("XDice {}".format(xdice.__VERSION__))
+        return
+    
+    for expr in args.expression:
+        ps = xdice.roll(expr)
+        
+        if args.num_only:
+            print(ps)
+        else:
+            print("{}\t({})".format(ps, ps.format(True)))
 
 
 if __name__ == "__main__":
