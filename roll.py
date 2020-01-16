@@ -1,51 +1,52 @@
+#! python3
 """
 Usage:
     roll [options] <expr>
 
 Options:
-    -n               Numeric score only
-    -v               Verbose result
-
+    -n --num_only    Numeric score only (Verbose result default)
     -h --help        Displays help message
     --version        Displays current xdice version
 """
-import sys
-
+import argparse
 import xdice
 
-def _print_and_exit(string, exit_code=0):
-    """ print and exit """
-    print(string)
-    sys.exit(exit_code)
 
-# Parse arguments
-args = sys.argv[1:]
+def main():
+    """Main command line entry point."""
+    parser = argparse.ArgumentParser(
+        prog="roll", description="Command Line Interface to the xdice library."
+    )
+    parser.add_argument(
+        "expression",
+        nargs="+",
+        help="Mathematical expression containing dice format <n>d<s> objects.",
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="store_true",
+        help="Prints the xdice library version string and exits.",
+    )
+    parser.add_argument(
+        "-n",
+        "--num_only",
+        action="store_true",
+        help="Prints numeric result only.  Otherwise full verbose result is returned.",
+    )
+    args = parser.parse_args()
 
-if "-h" in args:
-    _print_and_exit(__doc__)
+    if args.version:
+        print("Version {}".format(xdice.__VERSION__))
+    else:
+        if args.expression:
+            expr = "".join(args.expression)
+            ps = xdice.roll(expr)
+            if args.num_only:
+                print(ps)
+            else:
+                print("{}\t({})".format(ps, ps.format(True)))
 
-if "--version" in args:
-    _print_and_exit("xdice {}".format(xdice.__VERSION__))
 
-score_only = False
-if "-n" in args:
-    score_only = True
-    args.remove("-n")
-
-verbose = False
-if "-v" in args:
-    verbose = True
-    args.remove("-v")
-
-if len(args) != 1:
-    _print_and_exit("xdice CLI: invalid arguments\n" + __doc__, 1)
-
-pattern_string = args[0]
-
-# Run xdice
-ps = xdice.roll(pattern_string)
-
-if score_only:
-    print(ps)
-else:
-    print("{}\t({})".format(ps, ps.format(verbose)))
+if __name__ == "__main__":
+    main()

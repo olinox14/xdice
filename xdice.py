@@ -8,7 +8,7 @@
 import random
 import re
 
-__VERSION__ = 1.2
+__VERSION__ = "1.2.1"
 
 def compile(pattern_string):  # @ReservedAssignment
     """
@@ -251,6 +251,11 @@ class Score(int):
                                                                           self.detail,
                                                                           self.dropped,
                                                                           self.name)
+
+    def __str__(self):
+        """Returns a usable string representation for use with evaluating
+        a mathematical result."""
+        return "{}".format(int(self))
 
     def format(self, verbose=False):
         """
