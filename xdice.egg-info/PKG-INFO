@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: xdice
-Version: 1.1.4
+Version: 1.2.1
 Summary: The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.
 Home-page: https://github.com/cro-ki/xdice
 Author: Olivier Massot
@@ -13,7 +13,7 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
         *xdice* is a lightweight python library for managing dice, scores, and
         dice-notation patterns.
         
-        - Parse almost any Dice Notation pattern: '1d6+1', 'd20', '3d%', '1d20//2 - 2*(6d6+2)', 'max(1d4+1,1d6)', '3D6L2', 'R3(1d6+1)'...etc.
+        - Parse almost any Dice Notation pattern: '1d6+1', 'd20', '3d%', '1d20//2 - 2*(6d6+2)', 'max(1d4+1,1d6)', '3D6L2', 'R3(1d6+1)', '3dF'...etc.
         - API help you to easily manipulate dices, patterns, and scores as objects
         - A command line tool for convenience
         
@@ -21,7 +21,7 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
         Python Versions
         ^^^^^^^^^^^^^^^
         
-        DiceRollParser has been tested with **python 3.3+**
+        *xdice* has been tested with **python 3.4+**
         
         Documentation
         ~~~~~~~~~~~~~
@@ -35,11 +35,12 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
         
             import dice
         
-            # Roll simple dices with **rolldice()**
-        
+            # Roll simple dices with rolldice()
+        	# eg: 2d6
+        	
             score = rolldice(6, amount=2)
         
-            # manipulates score as an integer
+            # manipulates the score as an integer
         
             print(score)
             >> 11
@@ -55,7 +56,7 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
             >> 5
             >> 6
         
-            # Parse patterns with **roll()**
+            # Parse patterns with roll() and get a PatternScore object
         
             ps = roll("2d6+18")
         
@@ -64,6 +65,7 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
             print(ps.format())
             >> '[5,6]+18'
         
+        	# Use special notations, as selective dice
             ps = roll("6D%L2")
         
             print(ps)
@@ -79,14 +81,18 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
         
         ::
         
-            Usage:
-                roll [options] <expr>
-        
-            Options:
-                -s               Numeric score only
-        
-                -h --help        Displays help message
-                --version        Displays current xdice version
+        	usage: roll [-h] [-V] [-n] [-v] expression [expression ...]
+        	
+        	Command Line Interface for the xdice library
+        	
+        	positional arguments:
+        	  expression      mathematical expression(s) containing dice <n>d<s> patterns
+        	
+        	optional arguments:
+        	  -h, --help      show this help message and exit
+        	  -V, --version   print the xdice version string and exit
+        	  -n, --num_only  print numeric result only
+        	  -v, --verbose   print a verbose result
         
         CONTRIBUTION
         ^^^^^^^^^^^^
@@ -108,7 +114,7 @@ Description: |Build Status| |Coverage Status| |Documentation Status|
         Author
         ^^^^^^
         
-        Olivier Massot, 2017, with *Cro-ki Lab*
+        Olivier Massot, 2017
         
         Tags
         ^^^^
@@ -135,8 +141,9 @@ Classifier: Topic :: Games/Entertainment :: Role-Playing
 Classifier: Topic :: Games/Entertainment :: Multi-User Dungeons (MUD)
 Classifier: Topic :: Games/Entertainment :: Turn Based Strategy
 Classifier: License :: OSI Approved :: GNU General Public License (GPL)
-Classifier: Programming Language :: Python :: 3.3
 Classifier: Programming Language :: Python :: 3.4
 Classifier: Programming Language :: Python :: 3.5
 Classifier: Programming Language :: Python :: 3.6
-Requires-Python: >=3.3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.4
