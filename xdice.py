@@ -253,9 +253,9 @@ class Score(int):
                                                                           self.name)
 
     def __str__(self):
-        """Returns a usable string representation for use with evaluating
-        a mathematical result."""
-        return "{}".format(int(self))
+        """Returns a string representation """
+        # reimplements standard __str__ method for compatibility with python3.8+
+        return str(int(self))
 
     def format(self, verbose=False):
         """
@@ -356,6 +356,11 @@ class PatternScore(int):
         ps._scores = scores
 
         return ps
+
+    def __str__(self):
+        """Returns a string representation """
+        # reimplements standard __str__ method for compatibility with python3.8+
+        return str(int(self))
 
     def format(self, verbose=False):
         """
