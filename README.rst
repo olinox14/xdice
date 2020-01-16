@@ -13,7 +13,7 @@ dice-notation patterns.
 Python Versions
 ^^^^^^^^^^^^^^^
 
-*xdice* has been tested with **python 3.3+**
+*xdice* has been tested with **python 3.4+**
 
 Documentation
 ~~~~~~~~~~~~~
@@ -73,15 +73,18 @@ Run ``python roll.py [options] <expr>``
 
 ::
 
-	Usage:
-	    roll [options] <expr>
+	usage: roll [-h] [-V] [-n] [-v] expression [expression ...]
 	
-	Options:
-	    -n               Numeric score only
-	    -v               Verbose result
+	Command Line Interface for the xdice library
 	
-	    -h --help        Displays help message
-	    --version        Displays current xdice version
+	positional arguments:
+	  expression      mathematical expression(s) containing dice <n>d<s> patterns
+	
+	optional arguments:
+	  -h, --help      show this help message and exit
+	  -V, --version   print the xdice version string and exit
+	  -n, --num_only  print numeric result only
+	  -v, --verbose   print a verbose result
 
 CONTRIBUTION
 ^^^^^^^^^^^^
@@ -103,7 +106,7 @@ License
 Author
 ^^^^^^
 
-Olivier Massot, 2017, with *Cro-ki Lab*
+Olivier Massot, 2017
 
 Tags
 ^^^^
