@@ -15,7 +15,7 @@ with open("README.rst") as f:
 setup(
     name='xdice',
 
-    version='1.2.1',
+    version='1.2.2',
 
     description='The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.',
     long_description=long_description,
@@ -50,7 +50,11 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-
+    entry_points = {
+        'console_scripts': [
+            'roll=roll:main'
+        ]
+    },
     keywords='xdice roll d20 game random parser dices role board',
 
 )
