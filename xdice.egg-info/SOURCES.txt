@@ -1,3 +1,4 @@
+LICENSE.txt
 README.rst
 roll.py
 setup.py
@@ -11,4 +12,5 @@ docs/_build/html/searchindex.js
 xdice.egg-info/PKG-INFO
 xdice.egg-info/SOURCES.txt
 xdice.egg-info/dependency_links.txt
+xdice.egg-info/entry_points.txt
 xdice.egg-info/top_level.txt

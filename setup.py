@@ -15,7 +15,7 @@ with open("README.rst") as f:
 setup(
     name='xdice',
 
-    version='1.2.2',
+    version='1.2.3',
 
     description='The swiss knife for Dice roll : Command line, API (documented!), advanced dice notation parser, compilable patterns...etc.',
     long_description=long_description,
@@ -23,12 +23,11 @@ setup(
     url='https://github.com/cro-ki/xdice',
 
     author='Olivier Massot',
-    author_email='croki.contact@gmail.com',
 
     license='GNU',
 
     py_modules=['xdice', 'roll'],
-    python_requires='>=3.4',
+    python_requires='>=3.9',
 
     include_package_data=True,
 
@@ -44,11 +43,11 @@ setup(
 
         'License :: OSI Approved :: GNU General Public License (GPL)',
 
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ],
     entry_points = {
         'console_scripts': [

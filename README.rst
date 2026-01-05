@@ -13,7 +13,7 @@ dice-notation patterns.
 Python Versions
 ^^^^^^^^^^^^^^^
 
-*xdice* has been tested with **python 3.4+**
+*xdice* has been tested with **python 3.9+**
 
 Documentation
 ~~~~~~~~~~~~~
@@ -28,8 +28,8 @@ Examples:
     import dice
 
     # Roll simple dices with rolldice()
-	# eg: 2d6
-	
+    # eg: 2d6
+
     score = rolldice(6, amount=2)
 
     # manipulates the score as an integer
@@ -57,7 +57,7 @@ Examples:
     print(ps.format())
     >> '[5,6]+18'
 
-	# Use special notations, as selective dice
+    # Use special notations, as selective dice
     ps = roll("6D%L2")
 
     print(ps)
@@ -73,18 +73,18 @@ Run ``python roll.py [options] <expr>``
 
 ::
 
-	usage: roll [-h] [-V] [-n] [-v] expression [expression ...]
-	
-	Command Line Interface for the xdice library
-	
-	positional arguments:
-	  expression      mathematical expression(s) containing dice <n>d<s> patterns
-	
-	optional arguments:
-	  -h, --help      show this help message and exit
-	  -V, --version   print the xdice version string and exit
-	  -n, --num_only  print numeric result only
-	  -v, --verbose   print a verbose result
+    usage: roll [-h] [-V] [-n] [-v] expression [expression ...]
+
+    Command Line Interface for the xdice library
+
+    positional arguments:
+      expression      mathematical expression(s) containing dice <n>d<s> patterns
+
+    optional arguments:
+      -h, --help      show this help message and exit
+      -V, --version   print the xdice version string and exit
+      -n, --num_only  print numeric result only
+      -v, --verbose   print a verbose result
 
 CONTRIBUTION
 ^^^^^^^^^^^^
@@ -106,7 +106,7 @@ License
 Author
 ^^^^^^
 
-Olivier Massot, 2017
+Olivier Massot, 2017-2026
 
 Tags
 ^^^^

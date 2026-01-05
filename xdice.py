@@ -1,14 +1,14 @@
-'''
+"""
     xdice is a lightweight python 3.3+ library for managing rolls of dice.
 
     License: GNU
 
-@author: Olivier Massot <croki.contact@gmail.com>, 2017
-'''
+@author: Olivier Massot, 2017-2026
+"""
 import random
 import re
 
-__VERSION__ = "1.2.2"
+__VERSION__ = "1.2.3"
 
 def compile(pattern_string):  # @ReservedAssignment
     """
@@ -224,17 +224,17 @@ class Score(int):
         >>> s + 1
         7
         >>> list(s)
-        [1,2,3]
+        [1, 2, 3]
 
     """
-    def __new__(cls, detail, dropped=[], name=""):
+    def __new__(cls, detail, dropped=None, name=""):
         """
         detail should only contain integers
         Score value will be the sum of the list's values.
         """
         score = super(Score, cls).__new__(cls, sum(detail))
         score._detail = detail
-        score._dropped = dropped
+        score._dropped = dropped if dropped is not None else []
         score._name = name
         return score
 

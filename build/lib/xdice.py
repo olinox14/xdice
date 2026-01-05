@@ -8,7 +8,7 @@
 import random
 import re
 
-__VERSION__ = "1.2.1"
+__VERSION__ = "1.2.3"
 
 def compile(pattern_string):  # @ReservedAssignment
     """

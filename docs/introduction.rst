@@ -8,7 +8,7 @@ Presentation
 *xdice* is a dice library for Python that provides the main functionality 
 for managing dice, scores, and dice notation patterns.
 
-DiceRollParser has been tested with python 3.4+.  
+DiceRollParser has been tested with python 3.9+.
 *xdice* is under GNU License
 
 To install:
